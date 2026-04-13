@@ -69,12 +69,12 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-[linear-gradient(to_bottom,#020611_0%,#06101d_45%,#030814_100%)]" />
         <div className="absolute left-1/2 top-[18%] h-[520px] w-[520px] -translate-x-1/2 rounded-full bg-blue-500/10 blur-3xl" />
         <div className="absolute left-1/2 top-[22%] h-[280px] w-[280px] -translate-x-1/2 rounded-full border border-white/10 opacity-25" />
-        <div className="absolute inset-0 opacity-[0.02] [background-image:linear-gradient(rgba(255,255,255,0.6)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.6)_1px,transparent_1px)] [background-size:72px_72px]" />
       </div>
 
       {/* Hero */}
       <section className="relative z-10 flex min-h-screen items-center justify-center px-6">
         <div className="mx-auto -mt-12 flex w-full max-w-6xl flex-col items-center text-center">
+
           {/* Logo */}
           <div className="relative mb-10">
             <div className="absolute inset-0 rounded-[34px] bg-blue-400/10 blur-2xl" />
@@ -91,23 +91,23 @@ export default function HomePage() {
           </div>
 
           {/* Heading */}
-          <h1
-            className={`${cinzel.className} max-w-[1300px] text-[46px] leading-[0.96] tracking-[0.05em] text-white sm:text-[60px] md:text-[80px]`}
-          >
+          <h1 className={`${cinzel.className} text-[46px] sm:text-[60px] md:text-[80px]`}>
             <span className="block">CUSTOM</span>
-            <span className="block whitespace-nowrap">LICENSE PLATE</span>
-            <span className="mt-1 block bg-[linear-gradient(180deg,#ffffff_0%,#dbeafe_100%)] bg-clip-text text-transparent">
+            <span className="block">LICENSE PLATE</span>
+            <span className="block text-transparent bg-clip-text bg-[linear-gradient(180deg,#ffffff,#dbeafe)]">
               FRAMES
             </span>
           </h1>
 
-          <p className={`${inter.className} mt-6 max-w-3xl text-white/75`}>
+          {/* Description */}
+          <p className={`${inter.className} mt-6 max-w-2xl text-white/75`}>
             Premium handmade frames for North American plates. Bold, clean,
-  custom-made pieces designed to give your vehicle a more distinctive,
-  premium look.
+            custom-made pieces designed to give your vehicle a more distinctive,
+            premium look.
           </p>
 
-          <div className="mt-10 flex gap-4">
+          {/* Buttons */}
+          <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row">
             <Link
               href="https://decoforge3d.etsy.com"
               target="_blank"
@@ -115,7 +115,20 @@ export default function HomePage() {
             >
               Shop on Etsy
             </Link>
+
+            <a
+              href="#products"
+              className="border border-white/20 px-6 py-3 rounded-full"
+            >
+              View Frames
+            </a>
           </div>
+
+          {/* 🔥 ALT YAZI GERİ GELDİ */}
+          <div className="mt-8 text-xs tracking-widest text-white/40">
+            HANDMADE • CUSTOM • PREMIUM FINISH
+          </div>
+
         </div>
       </section>
 
@@ -128,20 +141,14 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
             {products.map((product, i) => (
-              <Link
-                key={i}
-                href={product.link}
-                target="_blank"
-                className="group block"
-              >
+              <Link key={i} href={product.link} target="_blank">
                 <div className="overflow-hidden rounded-2xl bg-white shadow-lg hover:scale-[1.02] transition">
                   <div className="relative aspect-square">
                     <Image
                       src={product.src}
                       alt={`Frame ${i}`}
                       fill
-                      className="object-contain p-4 group-hover:scale-105 transition"
-                      style={{ transform: `scale(${product.scale})` }}
+                      className="object-contain p-4"
                     />
                   </div>
                 </div>
