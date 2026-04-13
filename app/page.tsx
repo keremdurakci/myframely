@@ -102,7 +102,9 @@ export default function HomePage() {
           </h1>
 
           <p className={`${inter.className} mt-6 max-w-3xl text-white/75`}>
-            Premium handmade frames for North American plates.
+            Premium handmade frames for North American plates. Bold, clean,
+  custom-made pieces designed to give your vehicle a more distinctive,
+  premium look.
           </p>
 
           <div className="mt-10 flex gap-4">
