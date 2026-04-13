@@ -14,11 +14,11 @@ const inter = Inter({
 
 const products = [
   { src: "/p1.jpeg", scale: 1.18 },
-  { src: "/p2.jpeg", scale: 1.05 },
+  { src: "/p2.jpeg", scale: 1.50 },
   { src: "/p3.jpeg", scale: 1.12 },
   { src: "/p4.jpeg", scale: 1.16 },
   { src: "/p5.jpeg", scale: 1.14 },
-  { src: "/p6.jpeg", scale: 1.1 },
+  { src: "/p6.jpeg", scale: 1.3 },
   { src: "/p7.jpeg", scale: 1.2 },
   { src: "/p8.jpeg", scale: 1.13 },
   { src: "/p9.jpeg", scale: 1.12 },
@@ -62,7 +62,12 @@ export default function HomePage() {
           <h1
             className={`${cinzel.className} max-w-[1300px] text-[46px] leading-[0.96] tracking-[0.05em] text-white sm:text-[60px] md:text-[80px]`}
           >
-            <span className="block whitespace-nowrap">CUSTOM LICENSE PLATE</span>
+            <span className="block">CUSTOM</span>
+
+            <span className="block whitespace-nowrap">
+              LICENSE PLATE
+            </span>
+
             <span className="mt-1 block bg-[linear-gradient(180deg,#ffffff_0%,#dbeafe_100%)] bg-clip-text text-transparent drop-shadow-[0_0_14px_rgba(255,255,255,0.08)]">
               FRAMES
             </span>
