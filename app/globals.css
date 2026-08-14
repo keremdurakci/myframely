@@ -24,3 +24,85 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* --- 3D tilt cards (product grid, product detail image) --- */
+.tilt-card {
+  perspective: 900px;
+}
+.tilt-card-inner {
+  --rx: 0deg;
+  --ry: 0deg;
+  --tz: 0px;
+  --gx: 50%;
+  --gy: 50%;
+  position: relative;
+  transform: rotateX(var(--rx)) rotateY(var(--ry)) translateZ(var(--tz));
+  transform-style: preserve-3d;
+  transition:
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.5s ease;
+  will-change: transform;
+}
+.tilt-card:hover .tilt-card-inner,
+.tilt-card:focus-within .tilt-card-inner {
+  transition:
+    transform 0.08s linear,
+    box-shadow 0.3s ease;
+}
+.tilt-card-glare {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at var(--gx) var(--gy),
+    rgba(255, 255, 255, 0.5),
+    transparent 45%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+.tilt-card:hover .tilt-card-glare {
+  opacity: 1;
+}
+
+/* --- Hero orbit: floating 3D showcase of frames behind the headline --- */
+.hero-3d-stage {
+  perspective: 1400px;
+  perspective-origin: 50% 45%;
+}
+.hero-3d-orbit {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  animation: hero-orbit-spin 38s linear infinite;
+}
+.hero-3d-item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: clamp(64px, 9vw, 128px);
+  height: clamp(64px, 9vw, 128px);
+  margin-top: calc(clamp(64px, 9vw, 128px) / -2);
+  margin-left: calc(clamp(64px, 9vw, 128px) / -2);
+  transform: rotateY(calc(360deg / var(--n) * var(--i)))
+    translateZ(clamp(180px, 24vw, 320px));
+  border-radius: 20px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
+}
+@keyframes hero-orbit-spin {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-3d-orbit {
+    animation: none;
+  }
+}

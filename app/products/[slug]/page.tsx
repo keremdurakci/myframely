@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { products } from "@/lib/products";
+import TiltCard from "@/components/TiltCard";
 
 export default async function ProductPage({
   params,
@@ -24,7 +25,11 @@ export default async function ProductPage({
         </Link>
 
         <div className="mt-10 grid items-center gap-10 md:grid-cols-2">
-          <div className="rounded-3xl bg-white p-6 shadow-xl">
+          <TiltCard
+            className="rounded-3xl bg-white p-6 shadow-xl"
+            maxTilt={9}
+            lift={14}
+          >
             <div className="relative aspect-square">
               <Image
                 src={product.src}
@@ -33,10 +38,14 @@ export default async function ProductPage({
                 className="object-contain"
               />
             </div>
-          </div>
+          </TiltCard>
 
           <div>
-            <h1 className="text-4xl font-semibold md:text-5xl">
+            <span className="inline-block rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[11px] font-semibold tracking-widest text-white/50">
+              3D PRINTED • HAND-POURED EPOXY
+            </span>
+
+            <h1 className="mt-4 text-4xl font-semibold md:text-5xl">
               {product.title}
             </h1>
 

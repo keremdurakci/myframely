@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Cinzel, Inter } from "next/font/google";
 import { products } from "@/lib/products";
+import TiltCard from "@/components/TiltCard";
 
 const cinzel = Cinzel({
   subsets: ["latin"],
@@ -12,6 +13,19 @@ const inter = Inter({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
 });
+
+const ORBIT_SLUGS = [
+  "hello-kitty-license-plate-frame",
+  "chrome-skull-license-plate-frame",
+  "rainbow-license-plate-frame",
+  "veteran-license-plate-frame-usa-canada",
+  "owl-license-plate-frame",
+  "winged-license-plate-frame-set",
+];
+
+const orbitProducts = ORBIT_SLUGS.map((slug) =>
+  products.find((p) => p.slug === slug)
+).filter((p): p is (typeof products)[number] => Boolean(p));
 
 export default function HomePage() {
   return (
@@ -24,6 +38,34 @@ export default function HomePage() {
       </div>
 
       <section className="relative z-10 flex min-h-screen items-center justify-center px-6">
+        <div
+          className="hero-3d-stage pointer-events-none absolute inset-0 flex items-center justify-center"
+          aria-hidden="true"
+        >
+          <div className="hero-3d-orbit">
+            {orbitProducts.map((product, i) => (
+              <div
+                key={product.slug}
+                className="hero-3d-item"
+                style={
+                  {
+                    "--i": i,
+                    "--n": orbitProducts.length,
+                  } as React.CSSProperties
+                }
+              >
+                <Image
+                  src={product.src}
+                  alt=""
+                  fill
+                  sizes="140px"
+                  className="object-cover"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+
         <div className="mx-auto -mt-12 flex w-full max-w-6xl flex-col items-center text-center">
           <div className="relative mb-10">
             <div className="absolute inset-0 rounded-[34px] bg-blue-400/10 blur-2xl" />
@@ -73,7 +115,7 @@ export default function HomePage() {
           </div>
 
           <div className="mt-8 text-xs tracking-widest text-white/40">
-            HANDMADE • CUSTOM • PREMIUM FINISH
+            3D PRINTED • HAND-POURED EPOXY • CUSTOM FINISH
           </div>
         </div>
       </section>
@@ -87,7 +129,7 @@ export default function HomePage() {
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
             {products.map((product) => (
               <Link key={product.slug} href={`/products/${product.slug}`}>
-                <div className="overflow-hidden rounded-2xl bg-white shadow-lg transition hover:scale-[1.02]">
+                <TiltCard className="overflow-hidden rounded-2xl bg-white shadow-lg">
                   <div className="relative aspect-square">
                     <Image
                       src={product.src}
@@ -108,7 +150,7 @@ export default function HomePage() {
                       View Details →
                     </p>
                   </div>
-                </div>
+                </TiltCard>
               </Link>
             ))}
           </div>
