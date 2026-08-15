@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
+import StateDropdown from "./StateDropdown";
 
 const STYLES = [
   { value: "", label: "No preference" },
@@ -56,15 +57,7 @@ export default function PlateFinderForm({
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <label className="block">
           <span className={labelClass}>State</span>
-          <select value={state} onChange={(e) => setState(e.target.value)} className={inputClass}>
-            <option value="">Select a state</option>
-            {states.map((s) => (
-              <option key={s.stateCode} value={s.stateCode}>
-                {s.stateName}
-                {s.liveCheckEnabled ? " 🔴 LIVE" : ""}
-              </option>
-            ))}
-          </select>
+          <StateDropdown states={states} value={state} onChange={setState} />
           {states.some((s) => s.liveCheckEnabled) && (
             <span className="mt-2 inline-flex items-center gap-1 rounded-full border border-red-500/40 bg-red-500/10 px-2 py-0.5 text-[9px] font-semibold tracking-wide text-red-400 [text-shadow:0_0_4px_rgba(248,113,113,0.9),0_0_10px_rgba(239,68,68,0.6)]">
               <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-red-500 shadow-[0_0_4px_1px_rgba(239,68,68,0.9),0_0_8px_2px_rgba(239,68,68,0.5)]" />
