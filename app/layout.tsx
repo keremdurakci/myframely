@@ -2,25 +2,25 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "MyFramely | Custom License Plate Frames",
+  title: "MyFramely | Personalized Plate Finder & Custom License Plate Frames",
   description:
-    "Shop handmade custom license plate frames with premium epoxy finish. Cute, unique, veteran, pink, Snoopy, Hello Kitty inspired and decorative car plate frames for North American plates.",
+    "Find a personalized license plate that's actually available — generate plate ideas and check availability in supported U.S. states. Plus shop handmade custom license plate frames with premium epoxy finish.",
   keywords: [
+    "personalized license plate finder",
+    "vanity plate availability checker",
+    "license plate name generator",
     "custom license plate frames",
     "handmade license plate frame",
     "epoxy license plate frame",
     "cute car accessories",
     "decorative license plate holder",
-    "Snoopy license plate frame",
-    "Hello Kitty license plate frame",
     "veteran license plate frame",
-    "pink license plate frame",
     "North American license plate frame",
   ],
   openGraph: {
-    title: "MyFramely | Custom License Plate Frames",
+    title: "MyFramely | Personalized Plate Finder & Custom License Plate Frames",
     description:
-      "Premium handmade license plate frames. Unique and decorative car accessories.",
+      "Generate personalized license plate ideas, check availability in supported U.S. states, and shop premium handmade license plate frames.",
     url: "https://myframely.com",
     siteName: "MyFramely",
     images: [
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
         url: "/myframely-logo.png",
         width: 1200,
         height: 630,
-        alt: "MyFramely License Plate Frames",
+        alt: "MyFramely",
       },
     ],
     type: "website",

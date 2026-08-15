@@ -3,6 +3,8 @@ import Link from "next/link";
 import { Cinzel, Inter } from "next/font/google";
 import { products } from "@/lib/products";
 import TiltCard from "@/components/TiltCard";
+import PlateFinderForm from "@/components/PlateFinderForm";
+import { getAllStateConfigs } from "@/lib/plates/stateConfig";
 
 const cinzel = Cinzel({
   subsets: ["latin"],
@@ -14,20 +16,12 @@ const inter = Inter({
   weight: ["400", "500", "600", "700"],
 });
 
-const ORBIT_SLUGS = [
-  "hello-kitty-license-plate-frame",
-  "chrome-skull-license-plate-frame",
-  "rainbow-license-plate-frame",
-  "veteran-license-plate-frame-usa-canada",
-  "owl-license-plate-frame",
-  "winged-license-plate-frame-set",
-];
+export const revalidate = 3600;
 
-const orbitProducts = ORBIT_SLUGS.map((slug) =>
-  products.find((p) => p.slug === slug)
-).filter((p): p is (typeof products)[number] => Boolean(p));
+export default async function HomePage() {
+  const states = await getAllStateConfigs();
+  const hasAnyLiveState = states.some((s) => s.liveCheckEnabled);
 
-export default function HomePage() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#030814] text-white">
       <div className="absolute inset-0">
@@ -37,94 +31,49 @@ export default function HomePage() {
         <div className="absolute left-1/2 top-[22%] h-[280px] w-[280px] -translate-x-1/2 rounded-full border border-white/10 opacity-25" />
       </div>
 
-      <section className="relative z-10 flex min-h-screen items-center justify-center px-6">
-        <div
-          className="hero-3d-stage pointer-events-none absolute inset-0 flex items-center justify-center"
-          aria-hidden="true"
-        >
-          <div className="hero-3d-orbit">
-            {orbitProducts.map((product, i) => (
-              <div
-                key={product.slug}
-                className="hero-3d-item"
-                style={
-                  {
-                    "--i": i,
-                    "--n": orbitProducts.length,
-                  } as React.CSSProperties
-                }
-              >
-                <Image
-                  src={product.src}
-                  alt=""
-                  fill
-                  sizes="140px"
-                  className="object-cover"
-                />
-              </div>
-            ))}
-          </div>
-        </div>
+      <section className="relative z-10 flex min-h-screen flex-col items-center justify-center px-6 py-24">
+        <Link href="/" className="mb-8">
+          <Image
+            src="/myframely-logo.png"
+            alt="MyFramely"
+            width={900}
+            height={320}
+            priority
+            className="w-[190px] sm:w-[220px]"
+          />
+        </Link>
 
-        <div className="mx-auto -mt-12 flex w-full max-w-6xl flex-col items-center text-center">
-          <div className="relative mb-10">
-            <div className="absolute inset-0 rounded-[34px] bg-blue-400/10 blur-2xl" />
-            <div className="relative rounded-[30px] border border-white/8 bg-[linear-gradient(180deg,rgba(255,255,255,0.07),rgba(255,255,255,0.02))] px-6 py-4 shadow-[0_25px_80px_rgba(0,0,0,0.50)] backdrop-blur-lg">
-              <Image
-                src="/myframely-logo.png"
-                alt="MyFramely custom license plate frames logo"
-                width={900}
-                height={320}
-                priority
-                className="mx-auto w-[460px] sm:w-[560px] md:w-[680px]"
-              />
-            </div>
-          </div>
-
-          <h1
-            className={`${cinzel.className} text-[46px] sm:text-[60px] md:text-[80px]`}
-          >
-            <span className="block">CUSTOM</span>
-            <span className="block">LICENSE PLATE</span>
-            <span className="block bg-[linear-gradient(180deg,#ffffff,#dbeafe)] bg-clip-text text-transparent">
-              FRAMES
-            </span>
+        <div className="mx-auto w-full max-w-2xl text-center">
+          <p className={`${inter.className} text-xs font-semibold uppercase tracking-widest text-blue-400`}>
+            Personalized Plate Finder
+          </p>
+          <h1 className={`${cinzel.className} mt-3 text-[32px] leading-[1.15] sm:text-[44px] md:text-[52px]`}>
+            Find a Personalized Plate
+            <br className="hidden sm:block" /> That&apos;s Actually Available
           </h1>
-
-          <p className={`${inter.className} mt-6 max-w-2xl text-white/75`}>
-            Premium handmade frames for North American plates. Bold, clean,
-            custom-made pieces designed to give your vehicle a more distinctive,
-            premium look.
+          <p className={`${inter.className} mx-auto mt-4 max-w-xl text-white/70`}>
+            Generate personalized license plate ideas and check availability in supported U.S. states.
           </p>
 
-          <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row">
-            <Link
-              href="https://decoforge3d.etsy.com"
-              target="_blank"
-              className="rounded-full bg-blue-600 px-6 py-3"
-            >
-              Shop on Etsy
-            </Link>
+          <PlateFinderForm states={states.map((s) => ({ stateCode: s.stateCode, stateName: s.stateName }))} />
 
-            <a
-              href="#products"
-              className="rounded-full border border-white/20 px-6 py-3"
-            >
-              View Frames
-            </a>
-          </div>
-
-          <div className="mt-8 text-xs tracking-widest text-white/40">
-            3D PRINTED • HAND-POURED EPOXY • CUSTOM FINISH
-          </div>
+          <p className={`${inter.className} mx-auto mt-4 max-w-md text-xs text-white/40`}>
+            {hasAnyLiveState
+              ? "Live availability is currently supported in selected states."
+              : "We're rolling out live availability checking state by state — for now, every idea links straight to the official DMV site."}
+          </p>
         </div>
       </section>
 
       <section id="products" className="relative z-10 px-6 py-20">
         <div className="mx-auto max-w-6xl text-center">
-          <h2 className={`${cinzel.className} mb-10 text-3xl`}>
-            Featured Frames
-          </h2>
+          <p className={`${inter.className} text-xs font-semibold uppercase tracking-widest text-white/40`}>
+            Custom License Plate Frames
+          </p>
+          <h2 className={`${cinzel.className} mb-3 mt-2 text-3xl`}>Complete the Look</h2>
+          <p className={`${inter.className} mx-auto mb-10 max-w-xl text-sm text-white/60`}>
+            Found your plate? Pair it with a premium handmade frame for North American plates.
+          </p>
 
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
             {products.map((product) => (
@@ -155,7 +104,20 @@ export default function HomePage() {
             ))}
           </div>
 
-          <div className="mx-auto mt-20 max-w-4xl text-center text-xs leading-relaxed text-white/45">
+          <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+            <Link
+              href="https://decoforge3d.etsy.com"
+              target="_blank"
+              className="rounded-full bg-blue-600 px-6 py-3 text-sm font-semibold"
+            >
+              Shop on Etsy
+            </Link>
+            <span className="text-xs tracking-widest text-white/40">
+              3D PRINTED • HAND-POURED EPOXY • CUSTOM FINISH
+            </span>
+          </div>
+
+          <div className="mx-auto mt-16 max-w-4xl text-center text-xs leading-relaxed text-white/45">
             Custom license plate frames for cars, handmade epoxy license plate
             frames, cute car accessories, decorative license plate holders,
             personalized plate frames, veteran license plate frames, pink
