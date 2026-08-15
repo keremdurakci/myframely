@@ -81,4 +81,51 @@ export const PLATE_ART: Record<string, PlateArtConfig> = {
     color: "#c41230",
     italic: true,
   },
+  // Florida's blank space is a thin strip above the orange-branch graphic,
+  // not the usual open middle — everything else here has more room.
+  FL: {
+    image: "/plates/FL.png",
+    width: 2172,
+    height: 724,
+    textBox: { top: 18, left: 5, width: 90, height: 12 },
+    font: "serif",
+    color: "#1f5c3d",
+  },
+  IL: {
+    image: "/plates/IL.png",
+    width: 2172,
+    height: 724,
+    textBox: { top: 24, left: 8, width: 84, height: 32 },
+    font: "serif",
+    color: "#111111",
+  },
+  // Pelican sits bottom-right, "Sportsman's Paradise" bottom-left — text
+  // box is narrower and left-biased to clear both.
+  LA: {
+    image: "/plates/LA.png",
+    width: 2172,
+    height: 724,
+    textBox: { top: 30, left: 8, width: 50, height: 42 },
+    font: "serif",
+    color: "#c8102e",
+  },
+  // Small Texas-outline icon sits dead center — text box is a short strip
+  // above it, under the "TEXAS" header, rather than the full-height box
+  // every other state gets.
+  TX: {
+    image: "/plates/TX.png",
+    width: 2172,
+    height: 724,
+    textBox: { top: 20, left: 5, width: 90, height: 15 },
+    font: "blackSans",
+    color: "#111111",
+  },
+  VA: {
+    image: "/plates/VA.png",
+    width: 2172,
+    height: 724,
+    textBox: { top: 24, left: 8, width: 84, height: 46 },
+    font: "serif",
+    color: "#1a3a8f",
+  },
 };
