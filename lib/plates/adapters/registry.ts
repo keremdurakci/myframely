@@ -2,6 +2,7 @@ import type { StateConfig, StatePlateAdapter } from "../types";
 import { createOfficialOnlyAdapter } from "./officialOnly.ts";
 import { createWestVirginiaAdapter } from "./westVirginia.ts";
 import { createKansasAdapter } from "./kansas.ts";
+import { createNorthDakotaAdapter } from "./northDakota.ts";
 
 // Real LIVE adapters register themselves here as they're built — keyed by
 // state code. Until a state's entry exists here, AND its config has
@@ -14,6 +15,7 @@ import { createKansasAdapter } from "./kansas.ts";
 const LIVE_ADAPTERS: Record<string, (config: StateConfig) => StatePlateAdapter> = {
   WV: () => createWestVirginiaAdapter(),
   KS: () => createKansasAdapter(),
+  ND: () => createNorthDakotaAdapter(),
 };
 
 export function getAdapterForState(config: StateConfig): StatePlateAdapter {
