@@ -91,6 +91,16 @@ create table if not exists watch_daily_checks (
   unique (watch_id, check_date)
 );
 
+-- Daily rollup of getAvailabilityBatch's cache-vs-fresh-check decisions —
+-- the actual source for the admin dashboard's cache hit ratio, rather than
+-- a number computed from nothing. One row per calendar day, incremented in
+-- place as requests come in.
+create table if not exists availability_check_stats (
+  check_date date primary key default current_date,
+  cache_hits bigint not null default 0,
+  fresh_checks bigint not null default 0
+);
+
 -- RLS: service_role bypasses RLS by default, but GRANTs are still required
 -- (Postgres checks table-level GRANTs before RLS policies) — same pattern
 -- as medshort-ca/supabase/schema.sql.
@@ -101,6 +111,7 @@ alter table plate_watches enable row level security;
 alter table payments enable row level security;
 alter table adapter_health enable row level security;
 alter table watch_daily_checks enable row level security;
+alter table availability_check_stats enable row level security;
 
 create policy state_configs_select_all on state_configs for select using (true);
 create policy plate_availability_select_all on plate_availability for select using (true);

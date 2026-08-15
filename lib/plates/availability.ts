@@ -11,6 +11,28 @@ type CachedRow = {
   adapter_version: string | null;
 };
 
+// Feeds the admin dashboard's cache hit ratio — the actual measured number,
+// not something inferred after the fact. One row per day, incremented as
+// requests come in rather than computed retroactively.
+async function recordDailyStats(cacheHits: number, freshChecks: number): Promise<void> {
+  if (cacheHits === 0 && freshChecks === 0) return;
+  const today = new Date().toISOString().slice(0, 10);
+  const { data: existing } = await supabaseServer
+    .from("availability_check_stats")
+    .select("cache_hits, fresh_checks")
+    .eq("check_date", today)
+    .maybeSingle();
+
+  await supabaseServer.from("availability_check_stats").upsert(
+    {
+      check_date: today,
+      cache_hits: (existing?.cache_hits ?? 0) + cacheHits,
+      fresh_checks: (existing?.fresh_checks ?? 0) + freshChecks,
+    },
+    { onConflict: "check_date" }
+  );
+}
+
 async function isAdapterDegraded(stateCode: string): Promise<boolean> {
   const { data } = await supabaseServer
     .from("adapter_health")
@@ -118,13 +140,18 @@ export async function getAvailabilityBatch(
       remaining.push(plate);
     }
   }
-  if (remaining.length === 0) return results;
+  const cacheHits = normalizedPlates.length - remaining.length;
+  if (remaining.length === 0) {
+    await recordDailyStats(cacheHits, 0);
+    return results;
+  }
 
   if (!config.liveCheckEnabled) {
     const adapter = getAdapterForState(config);
     for (const plate of remaining) {
       results.set(plate, await adapter.checkAvailability(plate));
     }
+    await recordDailyStats(cacheHits, remaining.length);
     return results;
   }
 
@@ -133,6 +160,7 @@ export async function getAvailabilityBatch(
     for (const plate of remaining) {
       results.set(plate, { status: "ERROR", checkedAt, source: "live" });
     }
+    await recordDailyStats(cacheHits, remaining.length);
     return results;
   }
 
@@ -152,6 +180,7 @@ export async function getAvailabilityBatch(
   }
 
   await recordHealthOutcome(config.stateCode, sawError, sawSuccess);
+  await recordDailyStats(cacheHits, remaining.length);
 
   return results;
 }
