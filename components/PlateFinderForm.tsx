@@ -49,9 +49,9 @@ export default function PlateFinderForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className="mx-auto mt-10 w-full max-w-xl rounded-3xl border border-white/10 bg-white/[0.04] p-6 text-left shadow-[0_25px_80px_rgba(0,0,0,0.35)] backdrop-blur-sm sm:p-8"
+      className="mx-auto mt-3 w-full max-w-xl rounded-3xl border border-white/10 bg-white/[0.04] p-4 text-left shadow-[0_25px_80px_rgba(0,0,0,0.35)] backdrop-blur-sm sm:p-5"
     >
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         <label className="block">
           <span className={labelClass}>State</span>
           <StateDropdown states={states} value={state} onChange={setState} />

@@ -9,8 +9,8 @@
    actually produced the utility classes here, unlike the stock Next.js
    boilerplate this replaced, which nothing in the app ever exercised. */
 @theme {
-  --color-page: #18181b;
-  --color-surface: #27272a;
+  --color-page: #242424;
+  --color-surface: #363636;
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }

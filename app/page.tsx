@@ -23,35 +23,35 @@ export default async function HomePage() {
   const hasAnyLiveState = states.some((s) => s.liveCheckEnabled);
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-page text-white">
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_22%,rgba(40,110,255,0.20),transparent_16%),radial-gradient(circle_at_50%_38%,rgba(20,70,180,0.10),transparent_24%),radial-gradient(circle_at_center,rgba(255,255,255,0.025),transparent_40%)]" />
-        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,#0c0c0e_0%,#1f1f22_45%,#18181b_100%)]" />
-        <div className="absolute left-1/2 top-[18%] h-[520px] w-[520px] -translate-x-1/2 rounded-full bg-blue-500/10 blur-3xl" />
-        <div className="absolute left-1/2 top-[22%] h-[280px] w-[280px] -translate-x-1/2 rounded-full border border-white/10 opacity-25" />
-      </div>
+    <main className="relative overflow-hidden bg-page text-white">
+      <section className="relative flex flex-col items-center px-6 py-5 sm:py-7">
+        <div className="absolute inset-0 -z-10">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_14%,rgba(40,110,255,0.20),transparent_16%),radial-gradient(circle_at_50%_26%,rgba(20,70,180,0.10),transparent_24%),radial-gradient(circle_at_center,rgba(255,255,255,0.025),transparent_40%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(to_bottom,#141414_0%,#1c1c1c_55%,#242424_100%)]" />
+          <div className="absolute left-1/2 top-[6%] h-[360px] w-[360px] -translate-x-1/2 rounded-full bg-blue-500/10 blur-3xl" />
+          <div className="absolute left-1/2 top-[9%] h-[180px] w-[180px] -translate-x-1/2 rounded-full border border-white/10 opacity-25" />
+        </div>
 
-      <section className="relative z-10 flex min-h-screen flex-col items-center justify-center px-6 py-24">
-        <Link href="/" className="mb-8">
+        <Link href="/" className="relative mb-2">
           <Image
             src="/myframely-logo.png"
             alt="MyFramely"
             width={900}
             height={320}
             priority
-            className="w-[190px] sm:w-[220px]"
+            className="w-[105px] sm:w-[125px]"
           />
         </Link>
 
-        <div className="mx-auto w-full max-w-2xl text-center">
+        <div className="relative mx-auto w-full max-w-2xl text-center">
           <p className={`${inter.className} text-xs font-semibold uppercase tracking-widest text-blue-400`}>
             Personalized Plate Finder
           </p>
-          <h1 className={`${cinzel.className} mt-3 text-[32px] leading-[1.15] sm:text-[44px] md:text-[52px]`}>
+          <h1 className={`${cinzel.className} mt-2 text-[22px] leading-[1.2] sm:text-[26px] md:text-[30px]`}>
             Find a Personalized Plate
-            <br className="hidden sm:block" /> That&apos;s Actually Available
+            <br /> That&apos;s Actually Available
           </h1>
-          <p className={`${inter.className} mx-auto mt-4 max-w-xl text-white/70`}>
+          <p className={`${inter.className} mx-auto mt-2 max-w-xl text-sm text-white/70`}>
             Generate personalized license plate ideas and check availability in supported U.S. states.
           </p>
 
@@ -63,10 +63,23 @@ export default async function HomePage() {
             }))}
           />
 
-          <p className={`${inter.className} mx-auto mt-4 max-w-md text-xs text-white/40`}>
+          <p className={`${inter.className} mx-auto mt-3 max-w-md text-xs text-white/40`}>
             {hasAnyLiveState
               ? "Live availability is currently supported in selected states."
               : "We're rolling out live availability checking state by state — for now, every idea links straight to the official DMV site."}
+          </p>
+        </div>
+      </section>
+
+      <section className="relative z-10 px-6 pb-4">
+        <div className="mx-auto max-w-2xl rounded-2xl border border-red-500/25 bg-red-500/[0.06] p-6 text-center">
+          <p className={`${inter.className} text-xs font-semibold uppercase tracking-widest text-red-400`}>
+            Plate Watch
+          </p>
+          <h2 className={`${cinzel.className} mt-2 text-xl sm:text-2xl`}>Already Taken? We&apos;ll Keep Watching.</h2>
+          <p className={`${inter.className} mx-auto mt-2 max-w-lg text-sm text-white/60`}>
+            $4.99 gets you 30 days of daily availability checks on any taken plate — the moment it opens up,
+            we email you.
           </p>
         </div>
       </section>
