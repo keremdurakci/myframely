@@ -86,9 +86,11 @@ export default async function ResultsPage({ searchParams }: { searchParams: Sear
                   <PlateResultCard
                     key={suggestion.plate}
                     suggestion={suggestion}
+                    stateCode={config.stateCode}
                     stateName={config.stateName}
                     officialCheckerUrl={config.officialCheckerUrl}
                     availability={availability}
+                    liveCheckEnabled={config.liveCheckEnabled}
                   />
                 ))}
               </div>

@@ -21,7 +21,7 @@ const labelClass = "mb-1.5 block text-xs font-semibold uppercase tracking-wide t
 export default function PlateFinderForm({
   states,
 }: {
-  states: { stateCode: string; stateName: string }[];
+  states: { stateCode: string; stateName: string; liveCheckEnabled: boolean }[];
 }) {
   const router = useRouter();
   const [state, setState] = useState("");
@@ -61,9 +61,15 @@ export default function PlateFinderForm({
             {states.map((s) => (
               <option key={s.stateCode} value={s.stateCode}>
                 {s.stateName}
+                {s.liveCheckEnabled ? " 🔴 LIVE" : ""}
               </option>
             ))}
           </select>
+          {states.some((s) => s.liveCheckEnabled) && (
+            <span className="mt-2 inline-flex items-center rounded-full border border-red-500/30 bg-red-500/15 px-2.5 py-0.5 text-[10px] font-semibold text-red-400">
+              🔴 LIVE = real-time availability checking is on for that state
+            </span>
+          )}
         </label>
 
         <label className="block">

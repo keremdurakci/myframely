@@ -55,7 +55,13 @@ export default async function HomePage() {
             Generate personalized license plate ideas and check availability in supported U.S. states.
           </p>
 
-          <PlateFinderForm states={states.map((s) => ({ stateCode: s.stateCode, stateName: s.stateName }))} />
+          <PlateFinderForm
+            states={states.map((s) => ({
+              stateCode: s.stateCode,
+              stateName: s.stateName,
+              liveCheckEnabled: s.liveCheckEnabled,
+            }))}
+          />
 
           <p className={`${inter.className} mx-auto mt-4 max-w-md text-xs text-white/40`}>
             {hasAnyLiveState

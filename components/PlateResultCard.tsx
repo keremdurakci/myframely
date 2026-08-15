@@ -1,4 +1,5 @@
 import AvailabilityBadge, { type DisplayAvailability } from "./AvailabilityBadge";
+import WatchPlateButton from "./WatchPlateButton";
 import type { Suggestion } from "@/lib/plates/suggestionEngine";
 import type { AvailabilityResult } from "@/lib/plates/types";
 
@@ -12,14 +13,18 @@ function toDisplayAvailability(result: AvailabilityResult): DisplayAvailability 
 
 export default function PlateResultCard({
   suggestion,
+  stateCode,
   stateName,
   officialCheckerUrl,
   availability,
+  liveCheckEnabled,
 }: {
   suggestion: Suggestion;
+  stateCode: string;
   stateName: string;
   officialCheckerUrl: string;
   availability: AvailabilityResult;
+  liveCheckEnabled: boolean;
 }) {
   const display = toDisplayAvailability(availability);
   return (
@@ -36,6 +41,9 @@ export default function PlateResultCard({
         <p className="mt-3 text-xs text-white/40">
           Live availability is temporarily unavailable — please check directly on the official DMV website.
         </p>
+      )}
+      {display === "TAKEN" && liveCheckEnabled && (
+        <WatchPlateButton stateCode={stateCode} plate={suggestion.plate} />
       )}
       <a
         href={officialCheckerUrl}
