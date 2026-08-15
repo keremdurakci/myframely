@@ -9,15 +9,7 @@ import PlateResultCard from "@/components/PlateResultCard";
 const cinzel = Cinzel({ subsets: ["latin"], weight: ["600", "700"] });
 const inter = Inter({ subsets: ["latin"], weight: ["400", "500", "600"] });
 
-const VALID_STYLES: SuggestionStyle[] = [
-  "clean",
-  "funny",
-  "minimal",
-  "luxury",
-  "car",
-  "business",
-  "creative",
-];
+const VALID_STYLES: SuggestionStyle[] = ["funny", "minimal", "business", "car"];
 
 // Every combination of state/word/style/number is effectively unique,
 // user-generated input — indexing these would just be thin-content noise,

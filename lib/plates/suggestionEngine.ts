@@ -1,14 +1,7 @@
 import type { StateRules } from "./types";
 import { validatePlate } from "./validation.ts";
 
-export type SuggestionStyle =
-  | "clean"
-  | "funny"
-  | "minimal"
-  | "luxury"
-  | "car"
-  | "business"
-  | "creative";
+export type SuggestionStyle = "funny" | "minimal" | "business" | "car";
 
 export type SuggestionInput = {
   word: string;
@@ -49,13 +42,28 @@ const MAX_LEET_SUBS = 2;
 const MAX_CANDIDATES_RETURNED = 12;
 
 const STYLE_TAG_BONUS: Record<SuggestionStyle, Partial<Record<SuggestionTag, number>>> = {
-  clean: { original: 0.15, leet: 0.03 },
-  minimal: { "vowel-dropped": 0.2, truncated: 0.1 },
   funny: { leet: 0.15, "vowel-dropped-leet": 0.12 },
-  luxury: { original: 0.1, "prefix-number": 0.05 },
-  car: { "suffix-number": 0.1, leet: 0.05 },
+  minimal: { "vowel-dropped": 0.2, truncated: 0.1 },
   business: { original: 0.15, truncated: 0.05 },
-  creative: { "vowel-dropped-leet": 0.15, leet: 0.1 },
+  car: { "suffix-number": 0.1, "prefix-number": 0.08, leet: 0.05 },
+};
+
+// Unlike the bonus above (a ranking nudge), this actually changes which
+// candidates are eligible to appear at all — a small score bonus on an
+// already-short candidate list rarely reorders anything a user would
+// notice, so "pick a style" looked like it did nothing. Each predicate
+// describes the tag shape that style is *for*; generateSuggestions falls
+// back to the unfiltered set if nothing matches (a short word may not
+// have any leet-eligible letters, for instance) so a style choice never
+// produces zero results on its own.
+const STYLE_TAG_FILTER: Record<SuggestionStyle, (tags: SuggestionTag[]) => boolean> = {
+  funny: (tags) => tags.includes("leet") || tags.includes("vowel-dropped-leet"),
+  minimal: (tags) =>
+    (tags.includes("vowel-dropped") || tags.includes("truncated")) &&
+    !tags.includes("leet") &&
+    !tags.includes("vowel-dropped-leet"),
+  business: (tags) => !tags.includes("leet") && !tags.includes("vowel-dropped-leet"),
+  car: (tags) => tags.includes("prefix-number") || tags.includes("suffix-number") || tags.includes("leet"),
 };
 
 function lettersOnly(value: string): string {
@@ -264,11 +272,13 @@ export function generateSuggestions(input: SuggestionInput): Suggestion[] {
     scored.push(scoreCandidate(plate, tags, originalLetters, rules, style));
   }
 
-  scored.sort((a, b) => b.score - a.score);
+  const filtered = style ? scored.filter((s) => STYLE_TAG_FILTER[style](s.tags)) : scored;
+  const pool = filtered.length > 0 ? filtered : scored;
+  pool.sort((a, b) => b.score - a.score);
 
   const deduped: Suggestion[] = [];
   const seen = new Set<string>();
-  for (const s of scored) {
+  for (const s of pool) {
     if (seen.has(s.plate)) continue;
     seen.add(s.plate);
     deduped.push(s);

@@ -6,13 +6,10 @@ import StateDropdown from "./StateDropdown";
 
 const STYLES = [
   { value: "", label: "No preference" },
-  { value: "clean", label: "Clean" },
   { value: "funny", label: "Funny" },
   { value: "minimal", label: "Minimal" },
-  { value: "luxury", label: "Luxury" },
-  { value: "car", label: "Car" },
   { value: "business", label: "Business" },
-  { value: "creative", label: "Creative" },
+  { value: "car", label: "Car" },
 ];
 
 const inputClass =

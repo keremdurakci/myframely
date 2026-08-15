@@ -3,15 +3,7 @@ import { getStateConfig } from "@/lib/plates/stateConfig";
 import { generateSuggestions, type SuggestionStyle } from "@/lib/plates/suggestionEngine";
 import { getAvailabilityBatch } from "@/lib/plates/availability";
 
-const VALID_STYLES: SuggestionStyle[] = [
-  "clean",
-  "funny",
-  "minimal",
-  "luxury",
-  "car",
-  "business",
-  "creative",
-];
+const VALID_STYLES: SuggestionStyle[] = ["funny", "minimal", "business", "car"];
 
 // Read-only, no DMV call, no auth — pure local computation from the
 // suggestion engine. Kept as its own endpoint (separate from the

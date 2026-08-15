@@ -45,11 +45,47 @@ test("a requested number appears in at least one suggestion", () => {
   assert.ok(results.some((r) => r.plate.includes("82")));
 });
 
-test("minimal style favors vowel-dropped/shorter variants over clean style", () => {
-  const minimal = generateSuggestions({ word: "KEREM", rules: RULES, style: "minimal" });
-  const clean = generateSuggestions({ word: "KEREM", rules: RULES, style: "clean" });
-  assert.equal(minimal[0].tags.includes("vowel-dropped"), true);
-  assert.equal(clean[0].plate, "KEREM");
+test("minimal style only returns vowel-dropped/truncated candidates, never leet", () => {
+  const results = generateSuggestions({ word: "KEREM", rules: RULES, style: "minimal" });
+  assert.ok(results.length > 0);
+  for (const r of results) {
+    assert.equal(r.tags.includes("leet") || r.tags.includes("vowel-dropped-leet"), false);
+  }
+});
+
+test("business style excludes every leet-substituted candidate", () => {
+  const results = generateSuggestions({ word: "KEREM", rules: RULES, style: "business" });
+  assert.ok(results.length > 0);
+  for (const r of results) {
+    assert.equal(r.tags.includes("leet") || r.tags.includes("vowel-dropped-leet"), false);
+  }
+  assert.equal(results[0].plate, "KEREM");
+});
+
+test("funny style only returns leet-substituted candidates", () => {
+  const results = generateSuggestions({ word: "KEREM", rules: RULES, style: "funny" });
+  assert.ok(results.length > 0);
+  for (const r of results) {
+    assert.equal(r.tags.includes("leet") || r.tags.includes("vowel-dropped-leet"), true);
+  }
+});
+
+test("car style prefers number-combined or leet candidates when a number is given", () => {
+  const results = generateSuggestions({ word: "KEREM", number: "82", rules: RULES, style: "car" });
+  assert.ok(results.length > 0);
+  for (const r of results) {
+    assert.equal(
+      r.tags.includes("prefix-number") || r.tags.includes("suffix-number") || r.tags.includes("leet"),
+      true
+    );
+  }
+});
+
+test("a style with no matching candidates falls back to the unfiltered list instead of returning nothing", () => {
+  // "XY" has no leet-eligible letters (no E/A/I/O/S), so funny's filter
+  // would otherwise match nothing.
+  const results = generateSuggestions({ word: "XY", rules: RULES, style: "funny" });
+  assert.ok(results.length > 0);
 });
 
 test("a word too short to produce any valid candidate returns an empty list, not an error", () => {
