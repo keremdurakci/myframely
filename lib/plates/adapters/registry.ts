@@ -4,6 +4,7 @@ import { createWestVirginiaAdapter } from "./westVirginia.ts";
 import { createKansasAdapter } from "./kansas.ts";
 import { createNorthDakotaAdapter } from "./northDakota.ts";
 import { createTennesseeAdapter } from "./tennessee.ts";
+import { createMaineAdapter } from "./maine.ts";
 
 // Real LIVE adapters register themselves here as they're built — keyed by
 // state code. Until a state's entry exists here, AND its config has
@@ -18,6 +19,7 @@ const LIVE_ADAPTERS: Record<string, (config: StateConfig) => StatePlateAdapter> 
   KS: () => createKansasAdapter(),
   ND: () => createNorthDakotaAdapter(),
   TN: () => createTennesseeAdapter(),
+  ME: () => createMaineAdapter(),
 };
 
 export function getAdapterForState(config: StateConfig): StatePlateAdapter {
