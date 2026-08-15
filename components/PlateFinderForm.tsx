@@ -61,13 +61,14 @@ export default function PlateFinderForm({
             {states.map((s) => (
               <option key={s.stateCode} value={s.stateCode}>
                 {s.stateName}
-                {s.liveCheckEnabled ? " 🔴 LIVE" : ""}
+                {s.liveCheckEnabled ? " 🔴" : ""}
               </option>
             ))}
           </select>
           {states.some((s) => s.liveCheckEnabled) && (
-            <span className="mt-2 inline-flex items-center rounded-full border border-red-500/30 bg-red-500/15 px-2.5 py-0.5 text-[10px] font-semibold text-red-400">
-              🔴 LIVE = real-time availability checking is on for that state
+            <span className="mt-2 inline-flex items-center gap-1 rounded-full border border-red-500/40 bg-red-500/10 px-2 py-0.5 text-[9px] font-semibold tracking-wide text-red-400 [text-shadow:0_0_4px_rgba(248,113,113,0.9),0_0_10px_rgba(239,68,68,0.6)]">
+              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-red-500 shadow-[0_0_4px_1px_rgba(239,68,68,0.9),0_0_8px_2px_rgba(239,68,68,0.5)]" />
+              LIVE = real-time availability checking is on for that state
             </span>
           )}
         </label>
