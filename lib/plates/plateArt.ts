@@ -81,16 +81,12 @@ export const PLATE_ART: Record<string, PlateArtConfig> = {
     color: "#c41230",
     italic: true,
   },
-  // Florida's blank space is a thin strip above the orange-branch graphic,
-  // not the usual open middle — everything else here has more room.
-  FL: {
-    image: "/plates/FL.png",
-    width: 2172,
-    height: 724,
-    textBox: { top: 18, left: 5, width: 90, height: 12 },
-    font: "serif",
-    color: "#1f5c3d",
-  },
+  // FL is deliberately left out for now: the arched "MYFLORIDA.COM" header
+  // and the state-outline graphic interlock with no real gap between them
+  // anywhere across the width (checked top, center, and below the graphic —
+  // every position clips either the header or the artwork). Falls back to
+  // the plain-text card until there's a template with actual blank space,
+  // same as any other state with no entry here.
   IL: {
     image: "/plates/IL.png",
     width: 2172,
@@ -109,14 +105,15 @@ export const PLATE_ART: Record<string, PlateArtConfig> = {
     font: "serif",
     color: "#c8102e",
   },
-  // Small Texas-outline icon sits dead center — text box is a short strip
-  // above it, under the "TEXAS" header, rather than the full-height box
-  // every other state gets.
+  // Small Texas-outline icon sits dead center — text box sits below it,
+  // between the icon and the "The Lone Star State" footer, rather than the
+  // full-height box every other state gets (above the icon collided with
+  // the bottom of the bold "TEXAS" header).
   TX: {
     image: "/plates/TX.png",
     width: 2172,
     height: 724,
-    textBox: { top: 20, left: 5, width: 90, height: 15 },
+    textBox: { top: 66, left: 10, width: 80, height: 11 },
     font: "blackSans",
     color: "#111111",
   },
