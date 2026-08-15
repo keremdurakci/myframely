@@ -18,7 +18,7 @@ export default async function ProductPage({
   }
 
   return (
-    <main className="min-h-screen bg-[#030814] px-6 py-12 text-white">
+    <main className="min-h-screen bg-page px-6 py-12 text-white">
       <div className="mx-auto max-w-5xl">
         <Link href="/" className="text-sm text-white/60 hover:text-white">
           ← Back to all frames

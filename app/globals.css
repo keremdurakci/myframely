@@ -1,27 +1,23 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+/* Site is always dark — these are the one place its two background shades
+   are defined. `bg-page`/`bg-surface` utility classes come from this block
+   (Tailwind v4's @theme generates a utility per --color-* entry). Previously
+   every page hardcoded bg-[#030814] individually (six separate files) with
+   no shared token. Plain @theme (not @theme inline) with literal hex values
+   — an inline block indirecting through a separate :root var() never
+   actually produced the utility classes here, unlike the stock Next.js
+   boilerplate this replaced, which nothing in the app ever exercised. */
+@theme {
+  --color-page: #0f172a;
+  --color-surface: #1e293b;
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--color-page);
+  color: #ffffff;
   font-family: Arial, Helvetica, sans-serif;
 }
 

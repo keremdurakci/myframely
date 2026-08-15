@@ -40,7 +40,7 @@ export default async function AdminPage({ searchParams }: { searchParams: Search
 
   if (!authorized) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-[#030814] px-6 text-white">
+      <main className="flex min-h-screen items-center justify-center bg-page px-6 text-white">
         <p className="text-sm text-white/50">Unauthorized.</p>
       </main>
     );
@@ -84,7 +84,7 @@ export default async function AdminPage({ searchParams }: { searchParams: Search
   const cardClass = "rounded-2xl border border-white/10 bg-white/[0.03] p-5";
 
   return (
-    <main className="min-h-screen bg-[#030814] px-6 py-12 text-white">
+    <main className="min-h-screen bg-page px-6 py-12 text-white">
       <div className="mx-auto max-w-6xl">
         <h1 className="text-2xl font-semibold">Admin — Plate Finder</h1>
         <p className="mt-1 text-xs text-white/40">Read-only overview, Phase 1. Data as of page load.</p>

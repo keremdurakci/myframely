@@ -13,7 +13,7 @@ const STYLES = [
 ];
 
 const inputClass =
-  "w-full rounded-xl border border-white/15 bg-[#0a1526] px-3 py-2.5 text-sm text-white placeholder:text-white/30 outline-none focus:border-blue-400";
+  "w-full rounded-xl border border-white/15 bg-surface px-3 py-2.5 text-sm text-white placeholder:text-white/30 outline-none focus:border-blue-400";
 const labelClass = "mb-1.5 block text-xs font-semibold uppercase tracking-wide text-white/50";
 
 export default function PlateFinderForm({

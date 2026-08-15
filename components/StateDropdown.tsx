@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 type StateOption = { stateCode: string; stateName: string; liveCheckEnabled: boolean };
 
 const triggerClass =
-  "flex w-full items-center justify-between rounded-xl border border-white/15 bg-[#0a1526] px-3 py-2.5 text-left text-sm text-white outline-none focus:border-blue-400";
+  "flex w-full items-center justify-between rounded-xl border border-white/15 bg-surface px-3 py-2.5 text-left text-sm text-white outline-none focus:border-blue-400";
 
 // A real DOM list, not a native <select>/<option> — the state picker needed
 // per-item styling (a small pulsing glow next to "LIVE" rows) that native
@@ -55,7 +55,7 @@ export default function StateDropdown({
       {open && (
         <ul
           role="listbox"
-          className="absolute z-20 mt-1 max-h-64 w-full overflow-auto rounded-xl border border-white/15 bg-[#0a1526] py-1 shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
+          className="absolute z-20 mt-1 max-h-64 w-full overflow-auto rounded-xl border border-white/15 bg-surface py-1 shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
         >
           {states.map((s) => (
             <li key={s.stateCode} role="option" aria-selected={s.stateCode === value}>
