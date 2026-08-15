@@ -26,7 +26,7 @@ export default async function HomePage() {
     <main className="relative min-h-screen overflow-hidden bg-page text-white">
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_22%,rgba(40,110,255,0.20),transparent_16%),radial-gradient(circle_at_50%_38%,rgba(20,70,180,0.10),transparent_24%),radial-gradient(circle_at_center,rgba(255,255,255,0.025),transparent_40%)]" />
-        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,#0a1424_0%,#13233c_45%,#0f172a_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,#0c0c0e_0%,#1f1f22_45%,#18181b_100%)]" />
         <div className="absolute left-1/2 top-[18%] h-[520px] w-[520px] -translate-x-1/2 rounded-full bg-blue-500/10 blur-3xl" />
         <div className="absolute left-1/2 top-[22%] h-[280px] w-[280px] -translate-x-1/2 rounded-full border border-white/10 opacity-25" />
       </div>
