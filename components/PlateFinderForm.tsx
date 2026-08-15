@@ -61,7 +61,7 @@ export default function PlateFinderForm({
             {states.map((s) => (
               <option key={s.stateCode} value={s.stateCode}>
                 {s.stateName}
-                {s.liveCheckEnabled ? " 🔴" : ""}
+                {s.liveCheckEnabled ? " 🔴 LIVE" : ""}
               </option>
             ))}
           </select>
