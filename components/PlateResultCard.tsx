@@ -1,5 +1,7 @@
 import AvailabilityBadge, { type DisplayAvailability } from "./AvailabilityBadge";
 import WatchPlateButton from "./WatchPlateButton";
+import PlateMockup from "./PlateMockup";
+import { PLATE_ART } from "@/lib/plates/plateArt";
 import type { Suggestion } from "@/lib/plates/suggestionEngine";
 import type { AvailabilityResult } from "@/lib/plates/types";
 
@@ -27,8 +29,14 @@ export default function PlateResultCard({
   liveCheckEnabled: boolean;
 }) {
   const display = toDisplayAvailability(availability);
+  const hasPlateArt = Boolean(PLATE_ART[stateCode]);
   return (
     <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
+      {hasPlateArt && (
+        <div className="mb-4">
+          <PlateMockup stateCode={stateCode} plate={suggestion.plate} />
+        </div>
+      )}
       <div className="flex items-center justify-between gap-3">
         <span className="font-mono text-2xl font-bold tracking-wider">{suggestion.plate}</span>
         <AvailabilityBadge status={display} />
