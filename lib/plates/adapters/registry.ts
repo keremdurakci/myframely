@@ -1,6 +1,7 @@
 import type { StateConfig, StatePlateAdapter } from "../types";
 import { createOfficialOnlyAdapter } from "./officialOnly.ts";
 import { createWestVirginiaAdapter } from "./westVirginia.ts";
+import { createKansasAdapter } from "./kansas.ts";
 
 // Real LIVE adapters register themselves here as they're built — keyed by
 // state code. Until a state's entry exists here, AND its config has
@@ -12,6 +13,7 @@ import { createWestVirginiaAdapter } from "./westVirginia.ts";
 // it in front of real traffic by itself.
 const LIVE_ADAPTERS: Record<string, (config: StateConfig) => StatePlateAdapter> = {
   WV: () => createWestVirginiaAdapter(),
+  KS: () => createKansasAdapter(),
 };
 
 export function getAdapterForState(config: StateConfig): StatePlateAdapter {

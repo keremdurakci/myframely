@@ -67,6 +67,13 @@ test("registry still keeps WV on official-only while its flag is off, even thoug
   assert.equal(adapter.adapterVersion, "official-only-v1");
 });
 
+test("registry resolves KS to the real live adapter once its flag is on", () => {
+  const adapter = getAdapterForState(
+    stateConfig({ stateCode: "KS", officialCheckerUrl: "https://www.kdor.ks.gov/Apps/MotorVehicles", liveCheckEnabled: true })
+  );
+  assert.equal(adapter.adapterVersion, "kansas-v1");
+});
+
 test("every non-LIVE availability mode resolves to official-only regardless of the flag", async () => {
   for (const mode of ["PENDING", "OFFICIAL_ONLY", "DISABLED"] as const) {
     const adapter = getAdapterForState(stateConfig({ availabilityMode: mode, liveCheckEnabled: false }));
