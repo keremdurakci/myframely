@@ -17,13 +17,10 @@ const GA_MEASUREMENT_ID = "G-SVE8WDQ34E";
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.myframely.com"),
   alternates: { canonical: "/" },
-  title: "MyFramely | Personalized Plate Finder & Custom License Plate Frames",
+  title: "MyFramely | Custom License Plate Frames",
   description:
-    "Find a personalized license plate that's actually available — generate plate ideas and check availability in supported U.S. states. Plus shop handmade custom license plate frames with premium epoxy finish.",
+    "Shop handmade custom license plate frames with a premium hand-poured epoxy finish, for North American plates.",
   keywords: [
-    "personalized license plate finder",
-    "vanity plate availability checker",
-    "license plate name generator",
     "custom license plate frames",
     "handmade license plate frame",
     "epoxy license plate frame",
@@ -33,9 +30,9 @@ export const metadata: Metadata = {
     "North American license plate frame",
   ],
   openGraph: {
-    title: "MyFramely | Personalized Plate Finder & Custom License Plate Frames",
+    title: "MyFramely | Custom License Plate Frames",
     description:
-      "Generate personalized license plate ideas, check availability in supported U.S. states, and shop premium handmade license plate frames.",
+      "Shop premium handmade epoxy license plate frames for North American plates.",
     url: "https://www.myframely.com",
     siteName: "MyFramely",
     images: [
