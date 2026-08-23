@@ -3,13 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { products, getMetaDescription } from "@/lib/products";
-import { FRAME_PRICE_USD_CENTS } from "@/lib/orders";
 import TiltCard from "@/components/TiltCard";
-import BuyFrameButton from "@/components/BuyFrameButton";
 import JsonLd from "@/components/JsonLd";
 
 const SITE_URL = "https://www.myframely.com";
-const FRAME_PRICE_USD = (FRAME_PRICE_USD_CENTS / 100).toFixed(2);
 
 export async function generateMetadata({
   params,
@@ -62,9 +59,8 @@ export default async function ProductPage({
     brand: { "@type": "Brand", name: "MyFramely" },
     offers: {
       "@type": "Offer",
-      url: productUrl,
+      url: product.etsy,
       priceCurrency: "USD",
-      price: FRAME_PRICE_USD,
       availability: "https://schema.org/InStock",
       itemCondition: "https://schema.org/NewCondition",
     },
@@ -116,24 +112,14 @@ export default async function ProductPage({
               {product.description}
             </p>
 
-            <p className="mt-4 text-2xl font-semibold">
-              ${FRAME_PRICE_USD}{" "}
-              <span className="text-sm font-normal text-neutral-500">
-                + shipping — $15 to the US &amp; other countries, $35 to Canada
-              </span>
-            </p>
-
-            <div className="mt-6">
-              <BuyFrameButton slug={product.slug} />
-            </div>
-
             <div className="mt-6 flex flex-col gap-4 sm:flex-row">
               <Link
                 href={product.etsy}
                 target="_blank"
+                rel="noopener noreferrer"
                 className="rounded-full bg-blue-600 px-6 py-3 text-center text-white hover:bg-blue-500"
               >
-                View on Etsy
+                Shop on Etsy
               </Link>
 
               <Link

@@ -1,8 +1,7 @@
 import { products, PRODUCTS_LAST_SYNCED } from "../lib/products";
 import { guides } from "../lib/guides";
-import { getLiveStateConfigs } from "../lib/plates/stateConfig";
 
-export default async function sitemap() {
+export default function sitemap() {
   const baseUrl = "https://www.myframely.com";
 
   const productUrls = products.map((product) => ({
@@ -15,11 +14,6 @@ export default async function sitemap() {
     lastModified: new Date(guide.updatedDate),
   }));
 
-  const liveStates = await getLiveStateConfigs();
-  const popularUrls = liveStates.map((config) => ({
-    url: `${baseUrl}/popular?state=${config.stateCode}`,
-  }));
-
   const staticUrls = [`${baseUrl}/contact`, `${baseUrl}/privacy`, `${baseUrl}/terms`, `${baseUrl}/guides`].map(
     (url) => ({ url })
   );
@@ -28,5 +22,5 @@ export default async function sitemap() {
   // tied to the product catalog's own sync date) — omitting lastModified
   // is more honest than either a stale guess or a meaningless "now" on
   // every hourly regen.
-  return [{ url: baseUrl }, ...productUrls, ...guideUrls, ...popularUrls, ...staticUrls];
+  return [{ url: baseUrl }, ...productUrls, ...guideUrls, ...staticUrls];
 }
