@@ -4,7 +4,9 @@ import { supabaseServer } from "@/lib/supabaseServer";
 import { getStateConfig } from "@/lib/plates/stateConfig";
 import { getAvailabilityBatch } from "@/lib/plates/availability";
 import { getStripe } from "@/lib/stripe";
-import { sendPlateAvailableEmail } from "@/lib/email";
+import { sendFrameOrderEmail, sendPlateAvailableEmail } from "@/lib/email";
+import { products } from "@/lib/products";
+import { FRAME_PRICE_USD_CENTS, type ShippingDestination } from "@/lib/orders";
 
 export const dynamic = "force-dynamic";
 
@@ -27,7 +29,12 @@ export async function POST(request: NextRequest) {
   }
 
   if (event.type === "checkout.session.completed") {
-    await handleCheckoutCompleted(event.data.object as Stripe.Checkout.Session);
+    const session = event.data.object as Stripe.Checkout.Session;
+    if (session.metadata?.type === "frame_order") {
+      await handleFrameOrderCompleted(session);
+    } else {
+      await handleWatchCheckoutCompleted(session);
+    }
   }
 
   // Always 200 for anything we don't specifically act on — a non-200 makes
@@ -35,7 +42,60 @@ export async function POST(request: NextRequest) {
   return NextResponse.json({ received: true });
 }
 
-async function handleCheckoutCompleted(session: Stripe.Checkout.Session): Promise<void> {
+async function handleFrameOrderCompleted(session: Stripe.Checkout.Session): Promise<void> {
+  const productSlug = session.metadata?.productSlug;
+  const destination = session.metadata?.destination as ShippingDestination | undefined;
+  const paymentIntentId = typeof session.payment_intent === "string" ? session.payment_intent : session.payment_intent?.id;
+  const email = session.customer_details?.email;
+  const shipping = session.collected_information?.shipping_details;
+  if (!productSlug || !destination || !paymentIntentId || !email || !shipping) return;
+
+  const product = products.find((p) => p.slug === productSlug);
+  if (!product) return;
+
+  // Idempotent: Stripe redelivers events at-least-once. provider_payment_id
+  // is unique — a duplicate delivery fails this insert and we short-circuit
+  // instead of creating a second frame_orders row for the same payment.
+  const { data: payment } = await supabaseServer
+    .from("payments")
+    .insert({
+      provider: "stripe",
+      provider_payment_id: paymentIntentId,
+      amount: session.amount_total ?? FRAME_PRICE_USD_CENTS,
+      currency: session.currency ?? "usd",
+      customer_email: email,
+      status: "SUCCEEDED",
+    })
+    .select("id")
+    .single();
+  if (!payment) return;
+
+  const { data: order } = await supabaseServer
+    .from("frame_orders")
+    .insert({
+      product_slug: product.slug,
+      product_title: product.title,
+      customer_email: email,
+      shipping_name: shipping.name,
+      shipping_address: shipping.address,
+      shipping_destination: destination,
+      amount: session.amount_total ?? FRAME_PRICE_USD_CENTS,
+      currency: session.currency ?? "usd",
+      payment_id: payment.id,
+    })
+    .select("id")
+    .single();
+  if (!order) return;
+
+  await sendFrameOrderEmail({
+    productTitle: product.title,
+    customerEmail: email,
+    shippingName: shipping.name,
+    shippingAddress: shipping.address,
+  });
+}
+
+async function handleWatchCheckoutCompleted(session: Stripe.Checkout.Session): Promise<void> {
   const stateCode = session.metadata?.stateCode;
   const normalizedPlate = session.metadata?.normalizedPlate;
   const paymentIntentId = typeof session.payment_intent === "string" ? session.payment_intent : session.payment_intent?.id;
@@ -50,7 +110,7 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session): Promis
     .insert({
       provider: "stripe",
       provider_payment_id: paymentIntentId,
-      amount: session.amount_total ?? 499,
+      amount: session.amount_total ?? 299,
       currency: session.currency ?? "usd",
       customer_email: email,
       status: "SUCCEEDED",

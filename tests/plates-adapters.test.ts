@@ -52,9 +52,20 @@ test("registry falls back to official-only when live checking is disabled", () =
 
 test("registry falls back to official-only when no live adapter is registered yet, even if enabled", () => {
   const adapter = getAdapterForState(
-    stateConfig({ stateCode: "OH", officialCheckerUrl: "https://example.gov/oh", liveCheckEnabled: true })
+    stateConfig({ stateCode: "OR", officialCheckerUrl: "https://example.gov/or", liveCheckEnabled: true })
   );
   assert.equal(adapter.adapterVersion, "official-only-v1");
+});
+
+test("registry resolves OH to the real live adapter once its flag is on", () => {
+  const adapter = getAdapterForState(
+    stateConfig({
+      stateCode: "OH",
+      officialCheckerUrl: "https://bmvonline.dps.ohio.gov/bmvonline/oplates/specializedplates/1",
+      liveCheckEnabled: true,
+    })
+  );
+  assert.equal(adapter.adapterVersion, "ohio-v1");
 });
 
 test("registry resolves WV to the real live adapter once its flag is on", () => {

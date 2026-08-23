@@ -38,11 +38,11 @@ export default function WatchPlateButton({ stateCode, plate }: { stateCode: stri
         type="button"
         onClick={handleClick}
         disabled={loading}
-        className="inline-block rounded-full bg-blue-600 px-4 py-2 text-xs font-semibold hover:bg-blue-500 disabled:opacity-50"
+        className="inline-block rounded-full bg-blue-600 px-4 py-2 text-xs font-semibold text-white hover:bg-blue-500 disabled:opacity-50"
       >
-        {loading ? "Starting checkout…" : "Watch This Plate — $4.99/30 days"}
+        {loading ? "Starting checkout…" : "Watch This Plate — $2.99/30 days"}
       </button>
-      {error && <p className="mt-2 text-xs text-red-400">{error}</p>}
+      {error && <p className="mt-2 text-xs text-red-600">{error}</p>}
     </div>
   );
 }

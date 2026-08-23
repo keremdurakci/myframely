@@ -3,111 +3,121 @@
 import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import StateDropdown from "./StateDropdown";
-
-const STYLES = [
-  { value: "", label: "No preference" },
-  { value: "funny", label: "Funny" },
-  { value: "minimal", label: "Minimal" },
-  { value: "business", label: "Business" },
-  { value: "car", label: "Car" },
-];
+import type { StateRules } from "@/lib/plates/types";
 
 const inputClass =
-  "w-full rounded-xl border border-white/15 bg-surface px-3 py-2.5 text-sm text-white placeholder:text-white/30 outline-none focus:border-blue-400";
-const labelClass = "mb-1.5 block text-xs font-semibold uppercase tracking-wide text-white/50";
+  "w-full rounded-xl border border-neutral-200 bg-surface px-3 py-2.5 text-sm text-neutral-900 placeholder:text-neutral-400 outline-none focus:border-blue-500";
+const labelClass = "mb-1.5 block text-xs font-semibold uppercase tracking-wide text-neutral-500";
+
+// Spaces (when a state allows them) are formatting, not counted against the
+// character limit — mirrors validatePlate's own lengthBasis logic so the
+// counter never disagrees with the real server-side check.
+function meaningfulLength(value: string, rules: StateRules): number {
+  return rules.supportsSpaces ? value.replace(/\s/g, "").length : value.length;
+}
+
+function rulesSummary(rules: StateRules): string {
+  const parts = [`${rules.minCharacters}–${rules.maxCharacters} characters`];
+  const extras: string[] = [];
+  if (rules.supportsSpaces) extras.push("spaces");
+  if (rules.supportsHyphens) extras.push("hyphens");
+  parts.push(extras.length > 0 ? `letters, numbers & ${extras.join("/")} allowed` : "letters & numbers only");
+  return parts.join(" • ");
+}
 
 export default function PlateFinderForm({
   states,
 }: {
-  states: { stateCode: string; stateName: string; liveCheckEnabled: boolean }[];
+  states: { stateCode: string; stateName: string; liveCheckEnabled: boolean; rules: StateRules }[];
 }) {
   const router = useRouter();
   const [state, setState] = useState("");
-  const [word, setWord] = useState("");
-  const [style, setStyle] = useState("");
-  const [number, setNumber] = useState("");
+  const [plate, setPlate] = useState("");
   const [error, setError] = useState<string | null>(null);
 
-  function handleSubmit(e: FormEvent) {
+  const selectedRules = states.find((s) => s.stateCode === state)?.rules;
+
+  function submitCheck(e: FormEvent) {
     e.preventDefault();
     if (!state) {
       setError("Please choose a state.");
       return;
     }
-    if (!word.trim()) {
-      setError("Please enter a name, word, or idea.");
+    if (!plate.trim()) {
+      setError("Please enter the plate you want to check.");
       return;
     }
     setError(null);
+    router.push(`/results?${new URLSearchParams({ state, plate: plate.trim() }).toString()}`);
+  }
 
-    const params = new URLSearchParams({ state, word: word.trim() });
-    if (style) params.set("style", style);
-    if (number.trim()) params.set("number", number.trim());
-    router.push(`/results?${params.toString()}`);
+  function submitPopular() {
+    if (!state) {
+      setError("Please choose a state first.");
+      return;
+    }
+    setError(null);
+    router.push(`/popular?${new URLSearchParams({ state }).toString()}`);
   }
 
   return (
     <form
-      onSubmit={handleSubmit}
-      className="mx-auto mt-3 w-full max-w-xl rounded-3xl border border-white/10 bg-white/[0.04] p-4 text-left shadow-[0_25px_80px_rgba(0,0,0,0.35)] backdrop-blur-sm sm:p-5"
+      onSubmit={submitCheck}
+      className="mx-auto mt-3 w-full max-w-xl rounded-3xl border border-neutral-200 bg-white p-4 text-left shadow-[0_25px_60px_rgba(0,0,0,0.08)] sm:p-5"
     >
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         <label className="block">
           <span className={labelClass}>State</span>
           <StateDropdown states={states} value={state} onChange={setState} />
           {states.some((s) => s.liveCheckEnabled) && (
-            <span className="mt-2 inline-flex items-center gap-1 rounded-full border border-red-500/40 bg-red-500/10 px-2 py-0.5 text-[9px] font-semibold tracking-wide text-red-400 [text-shadow:0_0_4px_rgba(248,113,113,0.9),0_0_10px_rgba(239,68,68,0.6)]">
-              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-red-500 shadow-[0_0_4px_1px_rgba(239,68,68,0.9),0_0_8px_2px_rgba(239,68,68,0.5)]" />
+            <span className="mt-2 inline-flex items-center gap-1 rounded-full border border-red-200 bg-red-50 px-2 py-0.5 text-[9px] font-semibold tracking-wide text-red-600">
+              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-red-500" />
               LIVE = real-time availability checking is on for that state
             </span>
           )}
         </label>
 
         <label className="block">
-          <span className={labelClass}>Style (optional)</span>
-          <select value={style} onChange={(e) => setStyle(e.target.value)} className={inputClass}>
-            {STYLES.map((s) => (
-              <option key={s.value} value={s.value}>
-                {s.label}
-              </option>
-            ))}
-          </select>
-        </label>
-
-        <label className="block sm:col-span-2">
-          <span className={labelClass}>Name, Word, or Idea</span>
+          <span className={labelClass}>
+            Plate
+            {selectedRules && (
+              <span className="float-right normal-case text-neutral-400">
+                {meaningfulLength(plate, selectedRules)}/{selectedRules.maxCharacters}
+              </span>
+            )}
+          </span>
           <input
+            id="plate-word-input"
             type="text"
-            value={word}
-            onChange={(e) => setWord(e.target.value)}
-            placeholder="e.g. KEREM, MUSTANG, NURSE"
-            maxLength={30}
-            className={inputClass}
+            value={plate}
+            onChange={(e) => setPlate(e.target.value)}
+            placeholder="e.g. 45AK54, KEREM82, MUSTANG"
+            maxLength={12}
+            className={`${inputClass} uppercase`}
           />
-        </label>
-
-        <label className="block sm:col-span-2">
-          <span className={labelClass}>Number (optional)</span>
-          <input
-            type="text"
-            inputMode="numeric"
-            value={number}
-            onChange={(e) => setNumber(e.target.value.replace(/[^0-9]/g, ""))}
-            placeholder="Birth year, lucky number, car model..."
-            maxLength={8}
-            className={inputClass}
-          />
+          {selectedRules && <p className="mt-1.5 text-[11px] text-neutral-400">{rulesSummary(selectedRules)}</p>}
         </label>
       </div>
 
-      {error && <p className="mt-3 text-xs text-red-400">{error}</p>}
+      {error && <p className="mt-3 text-xs text-red-600">{error}</p>}
 
-      <button
-        type="submit"
-        className="mt-6 w-full rounded-full bg-blue-600 px-6 py-3 text-sm font-semibold hover:bg-blue-500"
-      >
-        Find My Plate
-      </button>
+      <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+        <button
+          type="submit"
+          className="flex-1 rounded-full bg-blue-600 px-6 py-3 text-sm font-semibold text-white hover:bg-blue-500"
+        >
+          Find My Plate
+        </button>
+        <button
+          type="button"
+          onClick={submitPopular}
+          disabled={!state}
+          title={!state ? "Choose a state first" : undefined}
+          className="flex-1 rounded-full border border-neutral-300 px-6 py-3 text-sm font-semibold text-neutral-700 hover:bg-neutral-100 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent"
+        >
+          Popular Plates
+        </button>
+      </div>
     </form>
   );
 }

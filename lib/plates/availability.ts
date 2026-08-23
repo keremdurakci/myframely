@@ -2,6 +2,7 @@ import { supabaseServer } from "../supabaseServer.ts";
 import type { AvailabilityResult, AvailabilityStatus, StateConfig } from "./types";
 import { getAdapterForState } from "./adapters/registry.ts";
 import { isCacheFresh, nextHealthStatus } from "./availabilityRules.ts";
+import { generateNearbyPlates } from "./nearbyPlates.ts";
 
 type CachedRow = {
   normalized_plate: string;
@@ -183,4 +184,48 @@ export async function getAvailabilityBatch(
   await recordDailyStats(cacheHits, remaining.length);
 
   return results;
+}
+
+const NEARBY_BATCH_SIZE = 10;
+const NEARBY_MAX_ROUNDS = 4;
+
+export type NearbyMatch = { plate: string; availability: AvailabilityResult };
+export type NearbySearchResult = { matches: NearbyMatch[]; tried: string[] };
+
+// Used when someone's exact desired plate is taken — searches outward from
+// it (closest single-character changes first, via generateNearbyPlates)
+// until `wanted` AVAILABLE plates are found or the round budget runs out.
+// Rounds are capped rather than searched exhaustively so this can't turn
+// into an unbounded scan against a live adapter (and its rate limits, e.g.
+// Ohio's) just because a popular plate has few available neighbors.
+//
+// Returns the full set of plates it tried (available or not) alongside the
+// matches, so a caller offering a "generate more" follow-up can search
+// further outward instead of re-checking (and re-discarding) the same
+// taken plates every time.
+export async function findNearbyAvailablePlates(
+  config: StateConfig,
+  targetPlate: string,
+  alreadyTried: Set<string>,
+  wanted: number
+): Promise<NearbySearchResult> {
+  const found: NearbyMatch[] = [];
+  const tried = new Set(alreadyTried);
+
+  for (let round = 0; round < NEARBY_MAX_ROUNDS && found.length < wanted; round++) {
+    const batch = generateNearbyPlates(targetPlate, config.rules, tried, NEARBY_BATCH_SIZE);
+    if (batch.length === 0) break;
+    for (const plate of batch) tried.add(plate);
+
+    const results = await getAvailabilityBatch(config, batch);
+    for (const plate of batch) {
+      const availability = results.get(plate);
+      if (availability?.status === "AVAILABLE") {
+        found.push({ plate, availability });
+        if (found.length >= wanted) break;
+      }
+    }
+  }
+
+  return { matches: found, tried: Array.from(tried) };
 }

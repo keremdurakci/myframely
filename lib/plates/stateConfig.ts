@@ -42,3 +42,15 @@ export async function getAllStateConfigs(): Promise<StateConfig[]> {
   const { data } = await supabaseServer.from("state_configs").select("*").order("state_name");
   return (data ?? []).map((r) => rowToConfig(r as StateConfigRow));
 }
+
+// The state picker only offers states with a real live check behind them —
+// a state still in PENDING/research doesn't belong in a user-facing list
+// with no way to tell it apart from a working one.
+export async function getLiveStateConfigs(): Promise<StateConfig[]> {
+  const { data } = await supabaseServer
+    .from("state_configs")
+    .select("*")
+    .eq("live_check_enabled", true)
+    .order("state_name");
+  return (data ?? []).map((r) => rowToConfig(r as StateConfigRow));
+}

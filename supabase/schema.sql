@@ -28,6 +28,21 @@ create table if not exists payments (
   created_at timestamptz not null default now()
 );
 
+create table if not exists frame_orders (
+  id uuid primary key default gen_random_uuid(),
+  product_slug text not null,
+  product_title text not null,
+  customer_email text not null,
+  shipping_name text not null,
+  shipping_address jsonb not null,
+  shipping_destination text not null check (shipping_destination in ('CA','INTL')),
+  amount int not null,
+  currency text not null default 'usd',
+  status text not null check (status in ('PAID','SHIPPED','CANCELED')) default 'PAID',
+  payment_id uuid references payments(id),
+  created_at timestamptz not null default now()
+);
+
 create table if not exists plate_availability (
   id bigserial primary key,
   state_code text not null references state_configs(state_code),
@@ -91,6 +106,24 @@ create table if not exists watch_daily_checks (
   unique (watch_id, check_date)
 );
 
+-- Curated "popular plate ideas" checked periodically (see
+-- app/api/cron/check-popular-plates) against each live state, so the
+-- Popular Plates page can show real, currently-available results without
+-- live-checking on every page view. One row per word+state; refreshed in
+-- place, not appended, so a word that goes from AVAILABLE to TAKEN updates
+-- rather than leaving a stale duplicate.
+create table if not exists popular_plates (
+  id bigserial primary key,
+  word text not null,
+  category text not null,
+  state_code text not null references state_configs(state_code),
+  status text not null check (status in ('AVAILABLE','TAKEN','UNKNOWN','ERROR')),
+  checked_at timestamptz not null default now(),
+  unique (word, state_code)
+);
+create index if not exists popular_plates_state_status_idx
+  on popular_plates (state_code, status);
+
 -- Daily rollup of getAvailabilityBatch's cache-vs-fresh-check decisions —
 -- the actual source for the admin dashboard's cache hit ratio, rather than
 -- a number computed from nothing. One row per calendar day, incremented in
@@ -109,15 +142,19 @@ alter table plate_availability enable row level security;
 alter table plate_status_history enable row level security;
 alter table plate_watches enable row level security;
 alter table payments enable row level security;
+alter table frame_orders enable row level security;
 alter table adapter_health enable row level security;
 alter table watch_daily_checks enable row level security;
 alter table availability_check_stats enable row level security;
+alter table popular_plates enable row level security;
 
 create policy state_configs_select_all on state_configs for select using (true);
 create policy plate_availability_select_all on plate_availability for select using (true);
+create policy popular_plates_select_all on popular_plates for select using (true);
 
 grant select on state_configs to anon, authenticated;
 grant select on plate_availability to anon, authenticated;
+grant select on popular_plates to anon, authenticated;
 
 -- Everything else (writes, and every operation on the remaining tables) is
 -- service_role only — no policies needed beyond RLS being enabled, since

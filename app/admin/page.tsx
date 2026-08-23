@@ -40,8 +40,8 @@ export default async function AdminPage({ searchParams }: { searchParams: Search
 
   if (!authorized) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-page px-6 text-white">
-        <p className="text-sm text-white/50">Unauthorized.</p>
+      <main className="flex min-h-screen items-center justify-center px-6 text-neutral-900">
+        <p className="text-sm text-neutral-500">Unauthorized.</p>
       </main>
     );
   }
@@ -81,47 +81,46 @@ export default async function AdminPage({ searchParams }: { searchParams: Search
 
   const paidChecksToday = watchChecksRes.count ?? 0;
 
-  const cardClass = "rounded-2xl border border-white/10 bg-white/[0.03] p-5";
+  const cardClass = "rounded-2xl border border-neutral-200 bg-white p-5 shadow-sm";
 
   return (
-    <main className="min-h-screen bg-page px-6 py-12 text-white">
+    <main className="min-h-screen px-6 py-12 text-neutral-900">
       <div className="mx-auto max-w-6xl">
         <h1 className="text-2xl font-semibold">Admin — Plate Finder</h1>
-        <p className="mt-1 text-xs text-white/40">Read-only overview, Phase 1. Data as of page load.</p>
+        <p className="mt-1 text-xs text-neutral-400">Read-only overview, Phase 1. Data as of page load.</p>
 
         <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
           <div className={cardClass}>
-            <p className="text-xs uppercase tracking-wide text-white/40">Cache hits today</p>
+            <p className="text-xs uppercase tracking-wide text-neutral-400">Cache hits today</p>
             <p className="mt-1 text-2xl font-semibold">{cacheHitsToday}</p>
           </div>
           <div className={cardClass}>
-            <p className="text-xs uppercase tracking-wide text-white/40">Fresh checks today</p>
+            <p className="text-xs uppercase tracking-wide text-neutral-400">Fresh checks today</p>
             <p className="mt-1 text-2xl font-semibold">{freshChecksToday}</p>
           </div>
           <div className={cardClass}>
-            <p className="text-xs uppercase tracking-wide text-white/40">Cache hit ratio</p>
+            <p className="text-xs uppercase tracking-wide text-neutral-400">Cache hit ratio</p>
             <p className="mt-1 text-2xl font-semibold">{hitRatio === null ? "—" : `${hitRatio}%`}</p>
           </div>
           <div className={cardClass}>
-            <p className="text-xs uppercase tracking-wide text-white/40">Active paid watches</p>
+            <p className="text-xs uppercase tracking-wide text-neutral-400">Active paid watches</p>
             <p className="mt-1 text-2xl font-semibold">{activeWatches}</p>
           </div>
           <div className={cardClass}>
-            <p className="text-xs uppercase tracking-wide text-white/40">Cached plates (total)</p>
+            <p className="text-xs uppercase tracking-wide text-neutral-400">Cached plates (total)</p>
             <p className="mt-1 text-2xl font-semibold">{totalCachedPlates}</p>
           </div>
         </div>
 
-        <p className="mt-3 text-xs text-white/35">
-          Paid daily checks completed today: {paidChecksToday} — Plate Watch ($4.99/30 days) isn&apos;t launched
-          yet (Phase 3), so this and active watches will read 0 until then.
+        <p className="mt-3 text-xs text-neutral-400">
+          Paid daily checks completed today: {paidChecksToday} — Plate Watch is $2.99/30 days.
         </p>
 
-        <h2 className="mt-10 text-sm font-semibold uppercase tracking-wide text-white/50">States</h2>
-        <div className="mt-4 overflow-x-auto rounded-2xl border border-white/10">
+        <h2 className="mt-10 text-sm font-semibold uppercase tracking-wide text-neutral-500">States</h2>
+        <div className="mt-4 overflow-x-auto rounded-2xl border border-neutral-200">
           <table className="w-full min-w-[820px] text-left text-sm">
             <thead>
-              <tr className="border-b border-white/10 bg-white/[0.03] text-xs uppercase tracking-wide text-white/40">
+              <tr className="border-b border-neutral-200 bg-neutral-50 text-xs uppercase tracking-wide text-neutral-400">
                 <th className="px-4 py-3">State</th>
                 <th className="px-4 py-3">Mode</th>
                 <th className="px-4 py-3">Live checks</th>
@@ -138,17 +137,17 @@ export default async function AdminPage({ searchParams }: { searchParams: Search
                 const healthStatus = health?.status ?? "—";
                 const healthColor =
                   healthStatus === "DEGRADED" || healthStatus === "DOWN"
-                    ? "text-red-400"
+                    ? "text-red-600"
                     : healthStatus === "HEALTHY"
-                      ? "text-green-400"
-                      : "text-white/40";
+                      ? "text-green-600"
+                      : "text-neutral-400";
                 return (
-                  <tr key={state.state_code} className="border-b border-white/5 last:border-0">
+                  <tr key={state.state_code} className="border-b border-neutral-100 last:border-0">
                     <td className="px-4 py-3">
                       <span className="font-medium">{state.state_name}</span>{" "}
-                      <span className="text-white/40">({state.state_code})</span>
+                      <span className="text-neutral-400">({state.state_code})</span>
                     </td>
-                    <td className="px-4 py-3 text-white/70">{state.availability_mode}</td>
+                    <td className="px-4 py-3 text-neutral-600">{state.availability_mode}</td>
                     <td className="px-4 py-3">
                       <form action={toggleLiveCheck} className="flex items-center gap-2">
                         <input type="hidden" name="key" value={params.key} />
@@ -157,25 +156,25 @@ export default async function AdminPage({ searchParams }: { searchParams: Search
                         <span
                           className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold ${
                             state.live_check_enabled
-                              ? "border-green-500/30 bg-green-500/15 text-green-400"
-                              : "border-white/20 bg-white/5 text-white/50"
+                              ? "border-green-200 bg-green-50 text-green-700"
+                              : "border-neutral-300 bg-neutral-100 text-neutral-500"
                           }`}
                         >
                           {state.live_check_enabled ? "ON" : "OFF"}
                         </span>
                         <button
                           type="submit"
-                          className="rounded-full border border-white/20 px-2.5 py-0.5 text-xs hover:bg-white/10"
+                          className="rounded-full border border-neutral-300 px-2.5 py-0.5 text-xs hover:bg-neutral-100"
                         >
                           Turn {state.live_check_enabled ? "off" : "on"}
                         </button>
                       </form>
                     </td>
                     <td className={`px-4 py-3 font-medium ${healthColor}`}>{healthStatus}</td>
-                    <td className="px-4 py-3 text-white/70">{health?.consecutive_errors ?? 0}</td>
-                    <td className="px-4 py-3 text-white/50">{fmt(health?.last_success_at ?? null)}</td>
-                    <td className="px-4 py-3 text-white/50">{fmt(health?.last_error_at ?? null)}</td>
-                    <td className="px-4 py-3 text-white/70">{cachedByState.get(state.state_code) ?? 0}</td>
+                    <td className="px-4 py-3 text-neutral-600">{health?.consecutive_errors ?? 0}</td>
+                    <td className="px-4 py-3 text-neutral-500">{fmt(health?.last_success_at ?? null)}</td>
+                    <td className="px-4 py-3 text-neutral-500">{fmt(health?.last_error_at ?? null)}</td>
+                    <td className="px-4 py-3 text-neutral-600">{cachedByState.get(state.state_code) ?? 0}</td>
                   </tr>
                 );
               })}
@@ -183,7 +182,7 @@ export default async function AdminPage({ searchParams }: { searchParams: Search
           </table>
         </div>
 
-        <p className="mt-4 text-xs text-white/35">
+        <p className="mt-4 text-xs text-neutral-400">
           Turning a state&apos;s live checks ON here makes MyFramely start sending real availability requests to
           that state&apos;s official checker for every visitor search. Only flip this after that state&apos;s
           adapter has been verified against real fixtures.

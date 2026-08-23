@@ -4,7 +4,7 @@ import { normalizePlate } from "@/lib/plates/normalize";
 import { validatePlate } from "@/lib/plates/validation";
 import { getStripe } from "@/lib/stripe";
 
-const WATCH_PRICE_USD_CENTS = 499;
+const WATCH_PRICE_USD_CENTS = 299;
 
 // Never trust a client-supplied path as a redirect target verbatim — this
 // only allows a same-site path (leading "/", not "//") so it can't be used
@@ -63,7 +63,7 @@ export async function POST(request: NextRequest) {
     // The only thread connecting the payment back to a specific plate —
     // this app has no accounts/session system, so the webhook reads these
     // back from the Stripe event instead of a server-side session.
-    metadata: { stateCode: config.stateCode, normalizedPlate },
+    metadata: { type: "watch", stateCode: config.stateCode, normalizedPlate },
     success_url: `${siteUrl}${returnPath}${separator}watch=success`,
     cancel_url: `${siteUrl}${returnPath}${separator}watch=canceled`,
   });

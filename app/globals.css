@@ -1,23 +1,36 @@
 @import "tailwindcss";
 
-/* Site is always dark — these are the one place its two background shades
-   are defined. `bg-page`/`bg-surface` utility classes come from this block
-   (Tailwind v4's @theme generates a utility per --color-* entry). Previously
-   every page hardcoded bg-[#030814] individually (six separate files) with
-   no shared token. Plain @theme (not @theme inline) with literal hex values
-   — an inline block indirecting through a separate :root var() never
-   actually produced the utility classes here, unlike the stock Next.js
-   boilerplate this replaced, which nothing in the app ever exercised. */
+/* Light theme (switched 2026-08-15 from an all-dark design) — these are the
+   one place its two background shades are defined. `bg-page`/`bg-surface`
+   utility classes come from this block (Tailwind v4's @theme generates a
+   utility per --color-* entry). Plain @theme (not @theme inline) with
+   literal hex values — an inline block indirecting through a separate
+   :root var() never actually produced the utility classes here, unlike the
+   stock Next.js boilerplate this replaced, which nothing in the app ever
+   exercised. `page` is the whole-site background; `surface` is one shade
+   darker, used for sunken elements like form inputs; cards/popovers sit
+   above both as plain white with a border and shadow. */
 @theme {
-  --color-page: #242424;
-  --color-surface: #363636;
+  --color-page: #fafaf9;
+  --color-surface: #f0f0ee;
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
+/* Site-wide texture: a faint hexagon grid behind every page, for depth
+   without competing with content. One SVG tile (56x96) holds a full hex
+   centered in the tile plus quarter-hex fragments at all four corners —
+   the standard construction for a seamless honeycomb tiling, since the
+   four corners of adjacent tiles meet at one point and each contributes
+   the matching quarter. stroke-opacity keeps it near-invisible; fixed
+   attachment keeps it from scrolling with content, reading as a subtle
+   watermark rather than part of the page itself. */
 body {
-  background: var(--color-page);
-  color: #ffffff;
+  background-color: var(--color-page);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='96' viewBox='0 0 56 96'%3E%3Cpath d='M27.71 16 L55.43 32 L55.43 64 L27.71 80 L0 64 L0 32 Z' fill='none' stroke='%232563eb' stroke-width='1' stroke-opacity='0.16'/%3E%3Cpath d='M0 -32 L27.71 -16 L27.71 16 L0 32 L-27.71 16 L-27.71 -16 Z' fill='none' stroke='%232563eb' stroke-width='1' stroke-opacity='0.16'/%3E%3Cpath d='M55.43 -32 L83.14 -16 L83.14 16 L55.43 32 L27.71 16 L27.71 -16 Z' fill='none' stroke='%232563eb' stroke-width='1' stroke-opacity='0.16'/%3E%3Cpath d='M0 64 L27.71 80 L27.71 112 L0 128 L-27.71 112 L-27.71 80 Z' fill='none' stroke='%232563eb' stroke-width='1' stroke-opacity='0.16'/%3E%3Cpath d='M55.43 64 L83.14 80 L83.14 112 L55.43 128 L27.71 112 L27.71 80 Z' fill='none' stroke='%232563eb' stroke-width='1' stroke-opacity='0.16'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-attachment: fixed;
+  color: #18181b;
   font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -60,4 +73,37 @@ body {
 }
 .tilt-card:hover .tilt-card-glare {
   opacity: 1;
+}
+
+/* --- Plate Watch promo card: a slow radiating ring to draw the eye to the
+   $4.99 CTA without being as distracting as a full opacity pulse. --- */
+@keyframes plate-watch-glow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.45), 0 20px 45px -15px rgba(17, 24, 39, 0.45);
+  }
+  50% {
+    box-shadow: 0 0 0 12px rgba(59, 130, 246, 0), 0 20px 45px -15px rgba(17, 24, 39, 0.45);
+  }
+}
+.plate-watch-card {
+  animation: plate-watch-glow 2.6s ease-in-out infinite;
+}
+
+/* --- Price badge inside the Plate Watch card: a layered "deal sticker"
+   look (rotated back plate + front ribbon) with a slow wobble so it reads
+   as a promo tag rather than plain price text. --- */
+.price-badge-back {
+  transform: rotate(-8deg);
+}
+.price-badge-front {
+  transform: rotate(4deg);
+  animation: price-badge-wobble 3s ease-in-out infinite;
+}
+@keyframes price-badge-wobble {
+  0%, 100% {
+    transform: rotate(4deg) scale(1);
+  }
+  50% {
+    transform: rotate(1deg) scale(1.05);
+  }
 }
