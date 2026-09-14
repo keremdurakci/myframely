@@ -3,6 +3,7 @@ import Link from "next/link";
 import { display, plateMono, body } from "@/lib/fonts";
 import { products } from "@/lib/products";
 import TiltCard from "@/components/TiltCard";
+import ReviewsCarousel from "@/components/ReviewsCarousel";
 
 export const revalidate = 3600;
 
@@ -103,24 +104,28 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="relative mx-auto w-full max-w-sm overflow-hidden rounded-xl border border-white/10 shadow-2xl">
-              <TiltCard maxTilt={7} lift={10}>
-                <div className="relative aspect-[3/4]">
-                  <video
-                    src="/videos/owl-frame-hero.mp4"
-                    poster="/products/etsy/owl-on-car.jpg"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    className="absolute inset-0 h-full w-full object-cover"
-                  />
-                  <div
-                    aria-hidden
-                    className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,transparent_60%,rgba(0,0,0,0.35))]"
-                  />
-                </div>
-              </TiltCard>
+            <div className="mx-auto w-full max-w-sm">
+              <ReviewsCarousel
+                reviews={reviews.map((review) => {
+                  const product = products.find((p) => p.slug === review.productSlug)!;
+                  return {
+                    quote: review.quote,
+                    name: review.name,
+                    date: review.date,
+                    productTitle: product.title,
+                    productSrc: product.src,
+                    productEtsy: product.etsy,
+                  };
+                })}
+              />
+              <a
+                href="https://www.etsy.com/ca/shop/DecoForge3D/reviews"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`${plateMono.className} mt-4 block text-center text-[11px] uppercase tracking-wide text-ontario-light hover:underline`}
+              >
+                See all reviews on Etsy →
+              </a>
             </div>
           </div>
         </div>
@@ -215,56 +220,6 @@ export default function HomePage() {
               </p>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Real Etsy reviews — three, because that's how many genuine,
-          on-topic, positive reviews the shop actually has. */}
-      <section className="px-6 py-16">
-        <div className="mx-auto max-w-5xl text-center">
-          <h2 className={`${display.className} text-2xl uppercase tracking-wide text-ink sm:text-3xl`}>
-            What Customers Say
-          </h2>
-          <p className={`${plateMono.className} mt-2 text-[11px] uppercase tracking-[0.2em] text-ink-soft`}>
-            Real reviews from Etsy buyers
-          </p>
-
-          <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-3">
-            {reviews.map((review) => {
-              const product = products.find((p) => p.slug === review.productSlug);
-              if (!product) return null;
-              return (
-                <Link
-                  key={review.name}
-                  href={product.etsy}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="plate-holes flex flex-col items-center rounded-lg border border-chrome/40 bg-white p-5 text-left shadow-sm"
-                >
-                  <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded border border-chrome/40 bg-surface">
-                    <Image src={product.src} alt={product.title} fill className="object-contain p-1" />
-                  </div>
-                  <p className="mt-3 text-[13px] text-resin">★★★★★</p>
-                  <p className={`${body.className} mt-2 text-sm italic text-ink-soft`}>&ldquo;{review.quote}&rdquo;</p>
-                  <p className={`${plateMono.className} mt-3 text-[11px] uppercase tracking-wide text-ink-soft`}>
-                    {review.name} · {review.date}
-                  </p>
-                  <p className={`${plateMono.className} mt-1 text-[10px] uppercase tracking-wide text-ontario`}>
-                    {product.title}
-                  </p>
-                </Link>
-              );
-            })}
-          </div>
-
-          <a
-            href="https://www.etsy.com/ca/shop/DecoForge3D/reviews"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`${plateMono.className} mt-8 inline-block text-[11px] uppercase tracking-wide text-ontario hover:underline`}
-          >
-            See all reviews on Etsy →
-          </a>
         </div>
       </section>
 
