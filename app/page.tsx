@@ -78,12 +78,12 @@ export default function HomePage() {
           </div>
 
           <TiltCard className="mx-auto w-full max-w-sm overflow-hidden rounded-3xl border border-neutral-200 bg-white shadow-md" maxTilt={7} lift={10}>
-            <div className="relative aspect-square">
+            <div className="relative aspect-[3/4]">
               <Image
-                src="/products/owl.jpg"
-                alt="Handmade epoxy license plate frame, close-up detail"
+                src="/products/etsy/owl-on-car.jpg"
+                alt="Owl license plate frame mounted on a customer's car"
                 fill
-                className="object-contain p-6"
+                className="object-cover"
               />
             </div>
           </TiltCard>
@@ -136,13 +136,43 @@ export default function HomePage() {
       </section>
 
       <section className="px-6 py-12">
-        <div className="mx-auto max-w-2xl">
-          <p className={`${inter.className} text-center text-sm text-neutral-500`}>
-            Every MyFramely design starts as a 3D model, gets printed to order, and is hand-finished with a
-            poured epoxy coat — so no two frames are perfectly identical, and that&apos;s the point.
+        <div className="mx-auto max-w-3xl">
+          <h2 className={`${cinzel.className} text-center text-lg`}>Handmade Detail</h2>
+          <p className={`${inter.className} mx-auto mt-2 max-w-xl text-center text-sm text-neutral-500`}>
+            Every design starts as a 3D model, gets printed to order, and is hand-finished with a poured epoxy
+            coat — so no two frames are perfectly identical, and that&apos;s the point.
           </p>
 
-          <h2 className={`${cinzel.className} mt-10 text-center text-lg`}>Frequently Asked Questions</h2>
+          <div className="mx-auto mt-6 grid max-w-xl grid-cols-2 gap-4">
+            <div>
+              <div className="relative aspect-[2/3] overflow-hidden rounded-2xl border border-neutral-200 shadow-sm">
+                <Image
+                  src="/products/etsy/wing-closeup-1.jpg"
+                  alt="Close-up of the hand-poured epoxy finish on a Wing license plate frame"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <p className={`${inter.className} mt-2 text-center text-xs text-neutral-500`}>
+                Hand-poured epoxy, glossy finish
+              </p>
+            </div>
+            <div>
+              <div className="relative aspect-[2/3] overflow-hidden rounded-2xl border border-neutral-200 shadow-sm">
+                <Image
+                  src="/products/etsy/wing-closeup-2.jpg"
+                  alt="Wing license plate frame mounted and ready to drive"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <p className={`${inter.className} mt-2 text-center text-xs text-neutral-500`}>
+                Mounted and ready to drive
+              </p>
+            </div>
+          </div>
+
+          <h2 className={`${cinzel.className} mt-12 text-center text-lg`}>Frequently Asked Questions</h2>
           <div className="mt-6 divide-y divide-neutral-200">
             {faqs.map((item) => (
               <div key={item.q} className="py-4">
