@@ -41,15 +41,19 @@ export default function HomePage() {
             Custom License Plate Frames
           </p>
           <h1 className={`${cinzel.className} mt-2 text-[22px] leading-[1.2] sm:text-[26px] md:text-[30px]`}>
-            Complete the Look
+            One-of-a-Kind Epoxy Frames
           </h1>
           <p className={`${inter.className} mx-auto mt-2 max-w-xl text-sm text-neutral-600`}>
-            Premium handmade epoxy license plate frames for North American plates.
+            Handmade, epoxy-finished license plate frames, 3D printed and hand-finished to order for North American
+            plates. Designed by MyFramely, made and shipped by DecoForge3D on Etsy.
+          </p>
+          <p className={`${inter.className} mt-4 text-xs font-medium text-neutral-500`}>
+            $40 USD per frame · handmade to order · ships from Etsy checkout
           </p>
         </div>
       </section>
 
-      <section id="products" className="relative z-10 px-6 py-16">
+      <section id="products" className="relative z-10 px-6 py-8">
         <div className="mx-auto max-w-6xl text-center">
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
             {products.map((product) => (
@@ -70,6 +74,8 @@ export default function HomePage() {
                     >
                       {product.title}
                     </h3>
+
+                    <p className="mt-1 text-xs text-neutral-500">$40 USD · handmade to order</p>
 
                     <p className="mt-2 text-xs font-medium text-blue-600">
                       Shop on Etsy →
