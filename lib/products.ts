@@ -46,12 +46,10 @@ Handmade with attention to detail`,
   {
     slug: "wing-license-plate-frame",
     title: "Wing License Plate Frame",
-    // Source photo has much more empty white margin than the rest of the
-    // catalog, so it reads as smaller inside the card — scale it up to
-    // crop into that margin (safe since the margin is plain white, same
-    // as the card background) rather than re-shooting the photo.
-    imageScale: 1.3,
-    src: "/products/wing.jpg",
+    // New render has even more empty margin than the old photo — needs a
+    // bigger crop to read at the same size as the rest of the catalog.
+    imageScale: 1.8,
+    src: "/products/wing.png",
     etsy: "https://www.etsy.com/ca/listing/4477236683/handmade-wing-license-plate-frame-epoxy",
     description: `Wing license plate frame designed for those who want a bold and stylish car accessory.
 This black license plate frame adds a unique and eye-catching look to your car while fitting all North American license plates.
