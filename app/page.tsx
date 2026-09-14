@@ -55,7 +55,7 @@ export default function HomePage() {
 
       <section id="products" className="relative z-10 px-6 py-8">
         <div className="mx-auto max-w-6xl text-center">
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 md:grid-cols-3">
             {products.map((product) => (
               <Link key={product.slug} href={product.etsy} target="_blank" rel="noopener noreferrer">
                 <TiltCard className="overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm">
@@ -64,20 +64,20 @@ export default function HomePage() {
                       src={product.src}
                       alt={`${product.title} handmade epoxy custom license plate frame`}
                       fill
-                      className="object-contain p-4"
+                      className="object-contain p-3 sm:p-4"
                     />
                   </div>
 
-                  <div className="px-4 pb-5">
+                  <div className="px-3 pb-3 sm:px-4 sm:pb-5">
                     <h3
                       className={`${inter.className} text-sm font-semibold text-neutral-900`}
                     >
                       {product.title}
                     </h3>
 
-                    <p className="mt-1 text-xs text-neutral-500">$40 USD · handmade to order</p>
+                    <p className="mt-0.5 text-xs text-neutral-500">$40 USD · handmade to order</p>
 
-                    <p className="mt-2 text-xs font-medium text-blue-600">
+                    <p className="mt-1.5 text-xs font-medium text-blue-600">
                       Shop on Etsy →
                     </p>
                   </div>
