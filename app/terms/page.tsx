@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Terms of Service | MyFramely",
-  description: "The terms that apply when you use MyFramely's plate finder tool or buy a license plate frame.",
+  description: "The terms that apply when you buy a license plate frame from MyFramely.",
   alternates: { canonical: "/terms" },
 };
 
@@ -24,38 +24,7 @@ export default function TermsPage() {
 
           <section>
             <h2 className="text-lg font-semibold text-neutral-900">Our Services</h2>
-            <p className="mt-2">MyFramely offers two things:</p>
-            <ul className="mt-2 list-disc space-y-2 pl-5">
-              <li>A personalized license plate availability finder, with an optional paid Plate Watch alert.</li>
-              <li>Handmade, epoxy-finished license plate frames for sale.</li>
-            </ul>
-          </section>
-
-          <section>
-            <h2 className="text-lg font-semibold text-neutral-900">Plate Availability Is Not Guaranteed</h2>
-            <p className="mt-2">
-              Our availability checks are best-effort and based on data from official state DMV systems, which can
-              change at any time. A plate shown as &quot;Available&quot; may already be taken by the time you apply
-              for it, and a plate shown as &quot;Taken&quot; or &quot;Unknown&quot; may in fact be available.{" "}
-              <strong>
-                Always confirm availability directly with the official state DMV before paying any state fees or
-                relying on a result from this site.
-              </strong>{" "}
-              MyFramely is not affiliated with any state DMV and is not responsible for a plate you wanted becoming
-              unavailable.
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-lg font-semibold text-neutral-900">Plate Watch</h2>
-            <p className="mt-2">
-              Plate Watch is a one-time $2.99 purchase, not a subscription — it does not renew automatically. Once
-              purchased, we check your chosen plate once a day for 30 days. If it becomes available, we&apos;ll email
-              you and the watch ends. If it doesn&apos;t become available within 30 days, the watch simply expires;
-              we don&apos;t charge you again. Because availability checks depend on official DMV systems outside our
-              control, we can&apos;t guarantee a watched plate will ever become available, or that our check will
-              catch it the instant it does.
-            </p>
+            <p className="mt-2">MyFramely sells handmade, epoxy-finished license plate frames.</p>
           </section>
 
           <section>
@@ -83,10 +52,9 @@ export default function TermsPage() {
           <section>
             <h2 className="text-lg font-semibold text-neutral-900">Limitation of Liability</h2>
             <p className="mt-2">
-              MyFramely&apos;s plate finder tool and products are provided &quot;as is.&quot; To the extent permitted
-              by law, MyFramely isn&apos;t liable for indirect, incidental, or consequential damages arising from
-              your use of the site or our products, including a plate becoming unavailable or a Plate Watch not
-              catching a match in time.
+              MyFramely&apos;s products are provided &quot;as is.&quot; To the extent permitted by law, MyFramely
+              isn&apos;t liable for indirect, incidental, or consequential damages arising from your use of the site
+              or our products.
             </p>
           </section>
 

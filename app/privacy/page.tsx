@@ -29,14 +29,6 @@ export default function PrivacyPage() {
             <p className="mt-2">We collect different information depending on what you do on the site:</p>
             <ul className="mt-2 list-disc space-y-2 pl-5">
               <li>
-                <strong>Plate availability checks:</strong> the plate text and state you search for. This isn&apos;t
-                tied to your identity in any way.
-              </li>
-              <li>
-                <strong>Plate Watch purchases:</strong> your email address, collected through Stripe&apos;s checkout
-                page, so we can email you if your watched plate becomes available.
-              </li>
-              <li>
                 <strong>Frame orders:</strong> your email address, name, and shipping address, collected through
                 Stripe&apos;s checkout page, so we can ship your order.
               </li>
@@ -58,7 +50,6 @@ export default function PrivacyPage() {
             <h2 className="text-lg font-semibold text-neutral-900">How We Use Your Information</h2>
             <ul className="mt-2 list-disc space-y-2 pl-5">
               <li>To fulfill and ship frame orders.</li>
-              <li>To run Plate Watch — checking availability on your behalf and emailing you when it changes.</li>
               <li>To respond to messages you send us.</li>
               <li>To understand how the site is used and improve it.</li>
             </ul>
@@ -76,10 +67,10 @@ export default function PrivacyPage() {
                 <strong>Stripe</strong> — processes payments and collects your shipping address at checkout.
               </li>
               <li>
-                <strong>Resend</strong> — sends order and Plate Watch emails on our behalf.
+                <strong>Resend</strong> — sends order emails on our behalf.
               </li>
               <li>
-                <strong>Supabase</strong> — stores order and Plate Watch records.
+                <strong>Supabase</strong> — stores order records.
               </li>
               <li>
                 <strong>Google Analytics</strong> — provides site usage analytics.
@@ -102,9 +93,9 @@ export default function PrivacyPage() {
           <section>
             <h2 className="text-lg font-semibold text-neutral-900">Data Retention</h2>
             <p className="mt-2">
-              We keep order and Plate Watch records for as long as needed to fulfill your order, provide the service
-              you paid for, and meet our own recordkeeping obligations. You can ask us to delete your information at
-              any time — see &quot;Your Rights&quot; below.
+              We keep order records for as long as needed to fulfill your order and meet our own recordkeeping
+              obligations. You can ask us to delete your information at any time — see &quot;Your Rights&quot;
+              below.
             </p>
           </section>
 

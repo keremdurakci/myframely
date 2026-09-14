@@ -67,7 +67,7 @@ Read the full guide: [Kentucky Vanity Plate Rules](/guides/kentucky-vanity-plate
 
 ### West Virginia, Kansas, North Dakota, Tennessee, Maine, and Wyoming
 
-Detailed state-by-state guides for West Virginia, Kansas, North Dakota, Tennessee, Maine, and Wyoming are in progress. In the meantime, you can check live availability for any of these states — along with Ohio and Kentucky — using the [personalized plate finder](/) on this site, which checks directly against the official state system rather than a cached list.
+Detailed state-by-state guides for West Virginia, Kansas, North Dakota, Tennessee, Maine, and Wyoming are in progress. In the meantime, check availability directly with each state's own DMV or revenue department site before you apply.
 
 ## Common Mistakes When Choosing a Personalized Plate
 
@@ -97,7 +97,7 @@ You'll need to pick a different combination. Checking availability before you ap
 
 ## Next Step
 
-If you already know which state you're registering in, check your exact combination against the live state system with the [plate finder](/) before you apply — it's faster than guessing and resubmitting.`,
+If you already know which state you're registering in, check your exact combination directly with that state's DMV before you apply — read the [Ohio](/guides/ohio-vanity-plate-rules) or [Kentucky](/guides/kentucky-vanity-plate-rules) guide for the specific portal to use.`,
   },
   {
     slug: "ohio-vanity-plate-rules",
@@ -121,7 +121,7 @@ The personalization fee is **$50**, and Ohio charges it again — another $50 �
 
 ## How to Check Availability
 
-Ohio's BMV runs a live availability lookup for personalized combinations. You can check a specific combination directly against Ohio's system using the [plate finder](/results?state=OH) on this site — it queries Ohio's own database in real time, so you'll know before you apply whether your combination is already taken.
+Ohio's BMV runs a live availability lookup for personalized combinations. [Check the official Ohio BMV site](https://bmvonline.dps.ohio.gov/bmvonline/oplates/specializedplates/1) directly — you'll know before you apply whether your combination is already taken.
 
 ## How to Apply
 
@@ -133,7 +133,7 @@ Beyond the standard profanity and illegal-activity restrictions every state appl
 
 ## Next Step
 
-Check your exact combination against Ohio's live system with the [plate finder](/results?state=OH), or go back to the [full state-by-state guide](/guides/vanity-plate-rules-by-state) to compare Ohio's rules against other states.`,
+Check your exact combination against [Ohio's official BMV site](https://bmvonline.dps.ohio.gov/bmvonline/oplates/specializedplates/1), or go back to the [full state-by-state guide](/guides/vanity-plate-rules-by-state) to compare Ohio's rules against other states.`,
   },
   {
     slug: "kentucky-vanity-plate-rules",
@@ -157,7 +157,7 @@ The personalization fee is **$25**, added on top of your regular vehicle registr
 
 ## How to Check Availability
 
-Kentucky's transportation cabinet runs a live personalized-plate lookup tool. You can check a specific combination directly against Kentucky's own system using the [plate finder](/results?state=KY) on this site.
+Kentucky's transportation cabinet runs a live personalized-plate lookup tool. [Check the official Kentucky DRIVE site](https://secure.kentucky.gov/kytc/plates/web) directly to see if your combination is available.
 
 ## How to Apply
 
@@ -169,6 +169,6 @@ Beyond standard profanity and illegal-content restrictions, the most common Kent
 
 ## Next Step
 
-Check your exact combination against Kentucky's live system with the [plate finder](/results?state=KY), or go back to the [full state-by-state guide](/guides/vanity-plate-rules-by-state) to compare Kentucky's rules against other states.`,
+Check your exact combination against [Kentucky's official DRIVE site](https://secure.kentucky.gov/kytc/plates/web), or go back to the [full state-by-state guide](/guides/vanity-plate-rules-by-state) to compare Kentucky's rules against other states.`,
   },
 ];

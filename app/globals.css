@@ -74,36 +74,3 @@ body {
 .tilt-card:hover .tilt-card-glare {
   opacity: 1;
 }
-
-/* --- Plate Watch promo card: a slow radiating ring to draw the eye to the
-   $4.99 CTA without being as distracting as a full opacity pulse. --- */
-@keyframes plate-watch-glow {
-  0%, 100% {
-    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.45), 0 20px 45px -15px rgba(17, 24, 39, 0.45);
-  }
-  50% {
-    box-shadow: 0 0 0 12px rgba(59, 130, 246, 0), 0 20px 45px -15px rgba(17, 24, 39, 0.45);
-  }
-}
-.plate-watch-card {
-  animation: plate-watch-glow 2.6s ease-in-out infinite;
-}
-
-/* --- Price badge inside the Plate Watch card: a layered "deal sticker"
-   look (rotated back plate + front ribbon) with a slow wobble so it reads
-   as a promo tag rather than plain price text. --- */
-.price-badge-back {
-  transform: rotate(-8deg);
-}
-.price-badge-front {
-  transform: rotate(4deg);
-  animation: price-badge-wobble 3s ease-in-out infinite;
-}
-@keyframes price-badge-wobble {
-  0%, 100% {
-    transform: rotate(4deg) scale(1);
-  }
-  50% {
-    transform: rotate(1deg) scale(1.05);
-  }
-}
