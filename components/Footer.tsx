@@ -6,9 +6,6 @@ export default function Footer() {
       <div className="mx-auto flex max-w-5xl flex-col items-center justify-between gap-4 sm:flex-row">
         <p>&copy; {new Date().getFullYear()} MyFramely</p>
         <nav className="flex gap-6">
-          <Link href="/guides" className="hover:text-neutral-900">
-            Guides
-          </Link>
           <Link href="/contact" className="hover:text-neutral-900">
             Contact
           </Link>
