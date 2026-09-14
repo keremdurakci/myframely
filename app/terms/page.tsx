@@ -30,9 +30,10 @@ export default function TermsPage() {
           <section>
             <h2 className="text-lg font-semibold text-neutral-900">Frame Orders</h2>
             <p className="mt-2">
-              Each frame is $40 USD plus shipping ($15 to the US and other countries, $35 to Canada), handmade and
-              3D-printed to order. Because each piece is individually handmade, slight variations from the product
-              photos are normal and expected, not a defect.
+              Frame prices vary by listing and are shown on Etsy at checkout, plus shipping ($15 to the US and other
+              countries, $35 to Canada). Each frame is handmade and 3D-printed to order. Because each piece is
+              individually handmade, slight variations from the product photos are normal and expected, not a
+              defect.
             </p>
             <p className="mt-2">
               Since every frame is made to order, we&apos;re not able to offer returns or exchanges once production

@@ -48,7 +48,7 @@ export default function HomePage() {
             plates. Designed by MyFramely, made and shipped by DecoForge3D on Etsy.
           </p>
           <p className={`${inter.className} mt-4 text-xs font-medium text-neutral-500`}>
-            $40 USD per frame · handmade to order · ships from Etsy checkout
+            Handmade to order · ships from Etsy checkout
           </p>
         </div>
       </section>
@@ -75,7 +75,7 @@ export default function HomePage() {
                       {product.title}
                     </h3>
 
-                    <p className="mt-0.5 text-xs text-neutral-500">$40 USD · handmade to order</p>
+                    <p className="mt-0.5 text-xs text-neutral-500">Handmade to order</p>
 
                     <p className="mt-1.5 text-xs font-medium text-blue-600">
                       Shop on Etsy →

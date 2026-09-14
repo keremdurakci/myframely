@@ -60,7 +60,6 @@ export default async function ProductPage({
     offers: {
       "@type": "Offer",
       url: product.etsy,
-      price: "40.00",
       priceCurrency: "USD",
       availability: "https://schema.org/InStock",
       itemCondition: "https://schema.org/NewCondition",
@@ -109,9 +108,7 @@ export default async function ProductPage({
               {product.title}
             </h1>
 
-            <p className="mt-3 text-lg font-semibold text-neutral-900">
-              $40 USD <span className="text-sm font-normal text-neutral-500">+ shipping · handmade to order</span>
-            </p>
+            <p className="mt-3 text-sm font-medium text-neutral-500">Handmade to order · see current price on Etsy</p>
 
             <p className="mt-6 whitespace-pre-line text-neutral-600">
               {product.description}
