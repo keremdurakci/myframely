@@ -37,14 +37,14 @@ export default function HomePage() {
         />
 
         <div className="relative mx-auto max-w-6xl">
-          <Link href="/" className="mx-auto mb-10 block w-fit md:mx-0">
+          <Link href="/" className="mx-auto mb-8 block w-fit md:mx-0">
             <Image
               src="/myframely-logo.png"
               alt="MyFramely"
               width={900}
               height={320}
               priority
-              className="w-24 sm:w-28"
+              className="w-44 sm:w-52"
             />
           </Link>
 
