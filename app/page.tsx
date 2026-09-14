@@ -75,8 +75,8 @@ export default function HomePage() {
             />
           </Link>
 
-          <div className="grid items-center gap-12 md:grid-cols-2">
-            <div className="text-center md:text-left">
+          <div className="grid grid-cols-1 items-center gap-12 md:grid-cols-2">
+            <div className="min-w-0 text-center md:text-left">
               <p className={`${plateMono.className} text-xs font-medium uppercase tracking-[0.2em] text-ontario-light`}>
                 Custom License Plate Frames
               </p>
@@ -104,7 +104,7 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="mx-auto w-full max-w-sm">
+            <div className="mx-auto min-w-0 w-full max-w-sm">
               <ReviewsCarousel
                 reviews={reviews.map((review) => {
                   const product = products.find((p) => p.slug === review.productSlug)!;

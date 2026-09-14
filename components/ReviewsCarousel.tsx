@@ -33,9 +33,9 @@ export default function ReviewsCarousel({ reviews }: { reviews: CarouselReview[]
   }
 
   return (
-    <div className="w-full overflow-hidden">
+    <div className="min-w-0 w-full overflow-hidden">
       <div
-        className="flex transition-transform duration-500 ease-out"
+        className="flex min-w-0 transition-transform duration-500 ease-out"
         style={{ transform: `translateX(-${index * 100}%)` }}
       >
         {reviews.map((review) => (
@@ -44,7 +44,7 @@ export default function ReviewsCarousel({ reviews }: { reviews: CarouselReview[]
             href={review.productEtsy}
             target="_blank"
             rel="noopener noreferrer"
-            className="plate-holes flex w-full shrink-0 flex-col items-center rounded-xl border border-chrome/40 bg-white p-6 text-center shadow-2xl"
+            className="plate-holes flex min-w-0 w-full shrink-0 flex-col items-center rounded-xl border border-chrome/40 bg-white p-6 text-center shadow-2xl"
           >
             <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded border border-chrome/40 bg-surface">
               <Image src={review.productSrc} alt={review.productTitle} fill className="object-contain p-1" />
