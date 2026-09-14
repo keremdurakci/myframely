@@ -89,12 +89,13 @@ export default async function ProductPage({
             maxTilt={9}
             lift={14}
           >
-            <div className="relative aspect-square">
+            <div className="relative aspect-square overflow-hidden">
               <Image
                 src={product.src}
                 alt={`${product.title} handmade license plate frame`}
                 fill
                 className="object-contain"
+                style={product.imageScale ? { transform: `scale(${product.imageScale})` } : undefined}
               />
             </div>
           </TiltCard>

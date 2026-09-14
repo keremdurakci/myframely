@@ -44,11 +44,10 @@ export default function HomePage() {
             One-of-a-Kind Epoxy Frames
           </h1>
           <p className={`${inter.className} mx-auto mt-2 max-w-xl text-sm text-neutral-600`}>
-            Handmade, epoxy-finished license plate frames, 3D printed and hand-finished to order for North American
-            plates. Designed by MyFramely, made and shipped by DecoForge3D on Etsy.
+            Handmade, epoxy-finished frames for North American plates — designed by MyFramely, made by DecoForge3D.
           </p>
-          <p className={`${inter.className} mt-4 text-xs font-medium text-neutral-500`}>
-            Handmade to order · ships from Etsy checkout
+          <p className={`${inter.className} mt-3 text-xs font-medium text-neutral-500`}>
+            Made to order · secure checkout on Etsy
           </p>
         </div>
       </section>
@@ -59,12 +58,13 @@ export default function HomePage() {
             {products.map((product) => (
               <Link key={product.slug} href={product.etsy} target="_blank" rel="noopener noreferrer">
                 <TiltCard className="overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm">
-                  <div className="relative aspect-square">
+                  <div className="relative aspect-square overflow-hidden">
                     <Image
                       src={product.src}
                       alt={`${product.title} handmade epoxy custom license plate frame`}
                       fill
                       className="object-contain p-3 sm:p-4"
+                      style={product.imageScale ? { transform: `scale(${product.imageScale})` } : undefined}
                     />
                   </div>
 
