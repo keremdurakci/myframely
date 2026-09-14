@@ -79,11 +79,14 @@ export default function HomePage() {
 
           <TiltCard className="mx-auto w-full max-w-sm overflow-hidden rounded-3xl border border-neutral-200 bg-white shadow-md" maxTilt={7} lift={10}>
             <div className="relative aspect-[3/4]">
-              <Image
-                src="/products/etsy/owl-on-car.jpg"
-                alt="Owl license plate frame mounted on a customer's car"
-                fill
-                className="object-cover"
+              <video
+                src="/videos/owl-frame-hero.mp4"
+                poster="/products/etsy/owl-on-car.jpg"
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="absolute inset-0 h-full w-full object-cover"
               />
             </div>
           </TiltCard>
