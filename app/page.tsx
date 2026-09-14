@@ -100,14 +100,11 @@ export default function HomePage() {
             </span>
           </div>
 
-          <div className="mx-auto mt-16 max-w-4xl text-center text-xs leading-relaxed text-neutral-400">
-            Custom license plate frames for cars, handmade epoxy license plate
-            frames, cute car accessories, decorative license plate holders,
-            personalized plate frames, veteran license plate frames, pink
-            license plate frames, Snoopy license plate frames, Hello Kitty
-            inspired car accessories, unique gifts for drivers, and premium
-            North American plate frames.
-          </div>
+          <p className="mx-auto mt-10 max-w-2xl text-center text-xs leading-relaxed text-neutral-400">
+            Every frame mounts with standard license plate screws — no extra tools or hardware needed. Each one is
+            printed and finished after you order, so slight variations from the photos are part of the handmade
+            process, not a flaw.
+          </p>
         </div>
       </section>
     </main>
