@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 const inputClass =
-  "w-full rounded-xl border border-neutral-200 bg-surface px-3 py-2.5 text-sm text-neutral-900 outline-none focus:border-blue-500";
+  "w-full rounded border border-chrome/50 bg-surface px-3 py-2.5 text-sm text-ink outline-none focus:border-ontario";
 
 export default function ContactForm() {
   const [name, setName] = useState("");
@@ -90,7 +90,7 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={loading}
-        className="rounded-full bg-blue-600 px-6 py-3 text-sm font-semibold text-white hover:bg-blue-500 disabled:opacity-50"
+        className="plate-button bg-ontario py-3 text-sm font-bold uppercase tracking-wide text-white hover:bg-blue-600 disabled:opacity-50"
       >
         {loading ? "Sending…" : "Send Message"}
       </button>

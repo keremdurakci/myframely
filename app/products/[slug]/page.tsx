@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { display, plateMono, body } from "@/lib/fonts";
 import { products, getMetaDescription } from "@/lib/products";
 import TiltCard from "@/components/TiltCard";
 import JsonLd from "@/components/JsonLd";
@@ -75,20 +76,16 @@ export default async function ProductPage({
   };
 
   return (
-    <main className="min-h-screen px-6 py-12 text-neutral-900">
+    <main className="min-h-screen px-6 py-12">
       <JsonLd data={productJsonLd} />
       <JsonLd data={breadcrumbJsonLd} />
       <div className="mx-auto max-w-5xl">
-        <Link href="/" className="text-sm text-neutral-500 hover:text-neutral-900">
+        <Link href="/" className={`${plateMono.className} text-xs uppercase tracking-wide text-ink-soft hover:text-ink`}>
           ← Back to all frames
         </Link>
 
         <div className="mt-10 grid items-center gap-10 md:grid-cols-2">
-          <TiltCard
-            className="rounded-3xl border border-neutral-200 bg-white p-6 shadow-xl"
-            maxTilt={9}
-            lift={14}
-          >
+          <TiltCard className="plate-holes rounded-lg border border-chrome/40 bg-white p-6 shadow-xl" maxTilt={9} lift={14}>
             <div className="relative aspect-square overflow-hidden">
               <Image
                 src={product.src}
@@ -101,42 +98,38 @@ export default async function ProductPage({
           </TiltCard>
 
           <div>
-            <span className="inline-block rounded-full border border-neutral-200 bg-neutral-50 px-3 py-1 text-[11px] font-semibold tracking-widest text-neutral-500">
-              3D PRINTED • HAND-POURED EPOXY
+            <span
+              className={`${plateMono.className} inline-block rounded border border-chrome/50 bg-surface px-3 py-1 text-[11px] font-medium uppercase tracking-widest text-ink-soft`}
+            >
+              3D Printed · Hand-Poured Epoxy
             </span>
 
-            <h1 className="mt-4 text-4xl font-semibold md:text-5xl">
+            <h1 className={`${display.className} mt-4 text-4xl uppercase tracking-wide text-ink md:text-5xl`}>
               {product.title}
             </h1>
 
-            <p className="mt-3 text-sm font-medium text-neutral-500">Handmade to order · see current price on Etsy</p>
-
-            <p className="mt-6 whitespace-pre-line text-neutral-600">
-              {product.description}
+            <p className={`${plateMono.className} mt-3 text-xs uppercase tracking-wide text-ink-soft`}>
+              Handmade to order · see current price on Etsy
             </p>
+
+            <p className={`${body.className} mt-6 whitespace-pre-line text-ink-soft`}>{product.description}</p>
 
             <div className="mt-6 flex flex-col gap-4 sm:flex-row">
               <Link
                 href={product.etsy}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-full bg-blue-600 px-6 py-3 text-center text-white hover:bg-blue-500"
+                className={`${body.className} plate-button inline-flex items-center justify-center bg-ontario py-3 text-center text-sm font-bold uppercase tracking-wide text-white hover:bg-blue-600`}
               >
                 Shop on Etsy
               </Link>
 
               <Link
                 href="/#products"
-                className="rounded-full border border-neutral-300 px-6 py-3 text-center hover:bg-neutral-100"
+                className={`${body.className} inline-flex items-center justify-center rounded border border-chrome px-6 py-3 text-center text-sm font-semibold text-ink hover:bg-surface`}
               >
                 View More Frames
               </Link>
-            </div>
-
-            <div className="mt-10 text-xs leading-relaxed text-neutral-400">
-              Custom license plate frame, handmade epoxy frame, decorative car
-              accessory, unique car gift, cute license plate frame, North
-              American plate holder, premium car styling accessory.
             </div>
           </div>
         </div>

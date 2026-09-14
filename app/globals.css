@@ -1,29 +1,131 @@
 @import "tailwindcss";
 
-/* Light theme (switched 2026-08-15 from an all-dark design) — these are the
-   one place its two background shades are defined. `bg-page`/`bg-surface`
-   utility classes come from this block (Tailwind v4's @theme generates a
-   utility per --color-* entry). Plain @theme (not @theme inline) with
-   literal hex values — an inline block indirecting through a separate
-   :root var() never actually produced the utility classes here, unlike the
-   stock Next.js boilerplate this replaced, which nothing in the app ever
-   exercised. `page` is the whole-site background; `surface` is one shade
-   darker, used for sunken elements like form inputs; cards/popovers sit
-   above both as plain white with a border and shadow. */
+/* Design tokens (redesigned 2026-09-13 around the product itself: a real
+   Ontario plate is white with blue lettering behind a chrome frame, so
+   the palette below is that plate — "ink" is the dark frame/asphalt,
+   "page"/"surface" are the plate itself, "chrome" is the metal trim,
+   "ontario" is lifted from the actual mockup blue on every product photo,
+   and "resin" stands in for hand-poured epoxy catching light. Tailwind v4's
+   @theme generates a `bg-*`/`text-*` utility per --color-* entry below. */
 @theme {
-  --color-page: #fafaf9;
-  --color-surface: #f0f0ee;
+  --color-page: #f6f5f2;
+  --color-surface: #ece9e3;
+  --color-ink: #14161a;
+  --color-ink-soft: #52565e;
+  --color-chrome: #b8b8b4;
+  --color-plate-soft: #c9cbce;
+  --color-ontario: #1e4fd1;
+  --color-ontario-light: #8aa4f2;
+  --color-resin: #e8a33d;
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-/* Plain off-white background (hexagon texture removed 2026-09-13 — it
-   was competing visually with the product photos instead of receding
-   behind them). Blue stays reserved for links/buttons/accents. */
 body {
   background-color: var(--color-page);
-  color: #18181b;
+  color: var(--color-ink);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* A thin metal-trim divider — three-stop gradient standing in for a strip
+   of chrome catching light, used anywhere a plain hairline would read as
+   generic (section boundaries, footer top edge). */
+.chrome-hairline {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-chrome) 20%,
+    #fff 50%,
+    var(--color-chrome) 80%,
+    transparent
+  );
+}
+
+/* Every real license plate frame has two mounting holes along its top
+   edge. Reused here as the site's signature mark on cards and buttons —
+   a literal detail from the product, not a decorative flourish. */
+.plate-holes {
+  position: relative;
+}
+.plate-holes::before,
+.plate-holes::after {
+  content: "";
+  position: absolute;
+  top: 10px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-chrome);
+  box-shadow:
+    inset 0 1px 1px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(255, 255, 255, 0.6);
+  z-index: 10;
+}
+.plate-holes::before {
+  left: 10px;
+}
+.plate-holes::after {
+  right: 10px;
+}
+
+.plate-button {
+  position: relative;
+  padding-left: 2.75rem;
+  padding-right: 2.75rem;
+}
+.plate-button::before,
+.plate-button::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.4);
+  transform: translateY(-50%);
+}
+.plate-button::before {
+  left: 16px;
+}
+.plate-button::after {
+  right: 16px;
+}
+
+/* Epoxy-gloss hover sweep: a diagonal highlight that crosses the card on
+   hover, standing in for the way the hand-poured resin coat catches light
+   when a frame turns in your hand. Lives on a real child element (not a
+   pseudo-element) so `.plate-holes` can keep ::before/::after for the
+   mounting holes. */
+.gloss-sweep {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 30%,
+    rgba(232, 163, 61, 0.35) 48%,
+    rgba(255, 255, 255, 0.55) 52%,
+    transparent 70%
+  );
+  background-size: 250% 250%;
+  background-position: -60% -60%;
+  opacity: 0;
+  transition:
+    opacity 0.4s ease,
+    background-position 0.7s ease;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+.group:hover .gloss-sweep {
+  opacity: 1;
+  background-position: 60% 60%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gloss-sweep {
+    transition: none;
+  }
 }
 
 /* --- 3D tilt cards (product grid, product detail image) --- */

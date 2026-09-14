@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { display, plateMono } from "@/lib/fonts";
 
 export const metadata: Metadata = {
   title: "Terms of Service | MyFramely",
@@ -9,12 +10,17 @@ export const metadata: Metadata = {
 
 export default function TermsPage() {
   return (
-    <main className="min-h-screen px-6 py-12 text-neutral-900">
+    <main className="min-h-screen px-6 py-12">
       <div className="mx-auto max-w-2xl">
-        <h1 className="text-3xl font-semibold md:text-4xl">Terms of Service</h1>
-        <p className="mt-2 text-sm text-neutral-500">Last updated: August 16, 2026</p>
+        <h1 className={`${display.className} text-3xl uppercase tracking-wide text-ink md:text-4xl`}>
+          Terms of Service
+        </h1>
+        <p className={`${plateMono.className} mt-2 text-xs uppercase tracking-wide text-ink-soft`}>
+          Last updated: August 16, 2026
+        </p>
+        <div className="chrome-hairline mt-4" />
 
-        <div className="mt-8 space-y-8 text-sm leading-relaxed text-neutral-700">
+        <div className="mt-8 space-y-8 rounded-lg border border-chrome/40 bg-white p-6 text-sm leading-relaxed text-ink-soft shadow-sm sm:p-8">
           <section>
             <p>
               By using myframely.com you agree to these terms. If you don&apos;t agree with them, please don&apos;t
@@ -23,12 +29,12 @@ export default function TermsPage() {
           </section>
 
           <section>
-            <h2 className="text-lg font-semibold text-neutral-900">Our Services</h2>
+            <h2 className={`${plateMono.className} text-xs font-semibold uppercase tracking-widest text-ink`}>Our Services</h2>
             <p className="mt-2">MyFramely sells handmade, epoxy-finished license plate frames.</p>
           </section>
 
           <section>
-            <h2 className="text-lg font-semibold text-neutral-900">Frame Orders</h2>
+            <h2 className={`${plateMono.className} text-xs font-semibold uppercase tracking-widest text-ink`}>Frame Orders</h2>
             <p className="mt-2">
               Frame prices vary by listing and are shown on Etsy at checkout, plus shipping ($15 to the US and other
               countries, $35 to Canada). Each frame is handmade and 3D-printed to order. Because each piece is
@@ -43,7 +49,7 @@ export default function TermsPage() {
           </section>
 
           <section>
-            <h2 className="text-lg font-semibold text-neutral-900">Intellectual Property</h2>
+            <h2 className={`${plateMono.className} text-xs font-semibold uppercase tracking-widest text-ink`}>Intellectual Property</h2>
             <p className="mt-2">
               The MyFramely name, logo, site design, and product photography belong to MyFramely and may not be
               copied or reused without our permission.
@@ -51,7 +57,7 @@ export default function TermsPage() {
           </section>
 
           <section>
-            <h2 className="text-lg font-semibold text-neutral-900">Limitation of Liability</h2>
+            <h2 className={`${plateMono.className} text-xs font-semibold uppercase tracking-widest text-ink`}>Limitation of Liability</h2>
             <p className="mt-2">
               MyFramely&apos;s products are provided &quot;as is.&quot; To the extent permitted by law, MyFramely
               isn&apos;t liable for indirect, incidental, or consequential damages arising from your use of the site
@@ -60,7 +66,7 @@ export default function TermsPage() {
           </section>
 
           <section>
-            <h2 className="text-lg font-semibold text-neutral-900">Changes to These Terms</h2>
+            <h2 className={`${plateMono.className} text-xs font-semibold uppercase tracking-widest text-ink`}>Changes to These Terms</h2>
             <p className="mt-2">
               We may update these terms from time to time. Changes will be posted on this page with an updated
               &quot;Last updated&quot; date.
@@ -68,10 +74,10 @@ export default function TermsPage() {
           </section>
 
           <section>
-            <h2 className="text-lg font-semibold text-neutral-900">Contact Us</h2>
+            <h2 className={`${plateMono.className} text-xs font-semibold uppercase tracking-widest text-ink`}>Contact Us</h2>
             <p className="mt-2">
               Questions about these terms?{" "}
-              <Link href="/contact" className="text-blue-600 hover:underline">
+              <Link href="/contact" className="text-ontario hover:underline">
                 Contact us
               </Link>
               .

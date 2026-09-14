@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { display } from "@/lib/fonts";
 import ContactForm from "@/components/ContactForm";
 
 export const metadata: Metadata = {
@@ -9,10 +10,11 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <main className="min-h-screen px-6 py-12 text-neutral-900">
+    <main className="min-h-screen px-6 py-12">
       <div className="mx-auto max-w-lg">
-        <h1 className="text-3xl font-semibold md:text-4xl">Contact Us</h1>
-        <p className="mt-3 text-sm text-neutral-600">
+        <h1 className={`${display.className} text-3xl uppercase tracking-wide text-ink md:text-4xl`}>Contact Us</h1>
+        <div className="chrome-hairline mt-4 w-16" />
+        <p className="mt-4 text-sm text-ink-soft">
           Questions about an order, a custom frame, or anything else? Send us a message below and we&apos;ll reply by
           email.
         </p>

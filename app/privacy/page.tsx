@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { display, plateMono } from "@/lib/fonts";
 
 export const metadata: Metadata = {
   title: "Privacy Policy | MyFramely",
@@ -9,12 +10,17 @@ export const metadata: Metadata = {
 
 export default function PrivacyPage() {
   return (
-    <main className="min-h-screen px-6 py-12 text-neutral-900">
+    <main className="min-h-screen px-6 py-12">
       <div className="mx-auto max-w-2xl">
-        <h1 className="text-3xl font-semibold md:text-4xl">Privacy Policy</h1>
-        <p className="mt-2 text-sm text-neutral-500">Last updated: August 16, 2026</p>
+        <h1 className={`${display.className} text-3xl uppercase tracking-wide text-ink md:text-4xl`}>
+          Privacy Policy
+        </h1>
+        <p className={`${plateMono.className} mt-2 text-xs uppercase tracking-wide text-ink-soft`}>
+          Last updated: August 16, 2026
+        </p>
+        <div className="chrome-hairline mt-4" />
 
-        <div className="mt-8 space-y-8 text-sm leading-relaxed text-neutral-700">
+        <div className="mt-8 space-y-8 rounded-lg border border-chrome/40 bg-white p-6 text-sm leading-relaxed text-ink-soft shadow-sm sm:p-8">
           <section>
             <p>
               This policy explains what personal information MyFramely (&quot;MyFramely,&quot; &quot;we,&quot;
@@ -25,7 +31,7 @@ export default function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="text-lg font-semibold text-neutral-900">Information We Collect</h2>
+            <h2 className={`${plateMono.className} text-xs font-semibold uppercase tracking-widest text-ink`}>Information We Collect</h2>
             <p className="mt-2">We collect different information depending on what you do on the site:</p>
             <ul className="mt-2 list-disc space-y-2 pl-5">
               <li>
@@ -47,7 +53,7 @@ export default function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="text-lg font-semibold text-neutral-900">How We Use Your Information</h2>
+            <h2 className={`${plateMono.className} text-xs font-semibold uppercase tracking-widest text-ink`}>How We Use Your Information</h2>
             <ul className="mt-2 list-disc space-y-2 pl-5">
               <li>To fulfill and ship frame orders.</li>
               <li>To respond to messages you send us.</li>
@@ -57,7 +63,7 @@ export default function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="text-lg font-semibold text-neutral-900">How We Share Your Information</h2>
+            <h2 className={`${plateMono.className} text-xs font-semibold uppercase tracking-widest text-ink`}>How We Share Your Information</h2>
             <p className="mt-2">
               We share information only with the service providers we use to run the site, and only as much as each
               one needs to do its job:
@@ -82,7 +88,7 @@ export default function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="text-lg font-semibold text-neutral-900">Cookies &amp; Analytics</h2>
+            <h2 className={`${plateMono.className} text-xs font-semibold uppercase tracking-widest text-ink`}>Cookies &amp; Analytics</h2>
             <p className="mt-2">
               We use Google Analytics cookies to understand site traffic. Stripe&apos;s checkout page may also set
               its own cookies while you&apos;re completing a payment — this is outside our direct control and
@@ -91,7 +97,7 @@ export default function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="text-lg font-semibold text-neutral-900">Data Retention</h2>
+            <h2 className={`${plateMono.className} text-xs font-semibold uppercase tracking-widest text-ink`}>Data Retention</h2>
             <p className="mt-2">
               We keep order records for as long as needed to fulfill your order and meet our own recordkeeping
               obligations. You can ask us to delete your information at any time — see &quot;Your Rights&quot;
@@ -100,10 +106,10 @@ export default function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="text-lg font-semibold text-neutral-900">Your Rights</h2>
+            <h2 className={`${plateMono.className} text-xs font-semibold uppercase tracking-widest text-ink`}>Your Rights</h2>
             <p className="mt-2">
               You can ask us to access, correct, or delete the personal information we hold about you at any time by{" "}
-              <Link href="/contact" className="text-blue-600 hover:underline">
+              <Link href="/contact" className="text-ontario hover:underline">
                 contacting us
               </Link>
               .
@@ -111,7 +117,7 @@ export default function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="text-lg font-semibold text-neutral-900">Children&apos;s Privacy</h2>
+            <h2 className={`${plateMono.className} text-xs font-semibold uppercase tracking-widest text-ink`}>Children&apos;s Privacy</h2>
             <p className="mt-2">
               MyFramely is not directed at children under 13, and we do not knowingly collect personal information
               from children under 13.
@@ -119,7 +125,7 @@ export default function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="text-lg font-semibold text-neutral-900">International Visitors</h2>
+            <h2 className={`${plateMono.className} text-xs font-semibold uppercase tracking-widest text-ink`}>International Visitors</h2>
             <p className="mt-2">
               We ship to the United States, Canada, and other countries. Because our service providers operate
               internationally, your information may be processed in countries other than the one you live in.
@@ -127,7 +133,7 @@ export default function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="text-lg font-semibold text-neutral-900">Changes to This Policy</h2>
+            <h2 className={`${plateMono.className} text-xs font-semibold uppercase tracking-widest text-ink`}>Changes to This Policy</h2>
             <p className="mt-2">
               We may update this policy from time to time. Changes will be posted on this page with an updated
               &quot;Last updated&quot; date.
@@ -135,7 +141,7 @@ export default function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="text-lg font-semibold text-neutral-900">Contact Us</h2>
+            <h2 className={`${plateMono.className} text-xs font-semibold uppercase tracking-widest text-ink`}>Contact Us</h2>
             <p className="mt-2">
               Questions about this policy or your data?{" "}
               <Link href="/contact" className="text-blue-600 hover:underline">
