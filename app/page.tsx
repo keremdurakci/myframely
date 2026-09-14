@@ -6,6 +6,32 @@ import TiltCard from "@/components/TiltCard";
 
 export const revalidate = 3600;
 
+// Real reviews from decoforge3d.etsy.com, on products that are actually
+// sold on this site — Etsy's other reviews on this shop (for a separate
+// Elvis Presley panel listing) and the one 1-star shipping-damage review
+// are left out: not representative of a frame, or not a testimonial.
+const reviews = [
+  {
+    quote: "Fantastic license plate cover. High recommend.",
+    name: "Dorothy",
+    date: "Aug 2026",
+    productSlug: "rainbow-license-plate-frame",
+  },
+  {
+    quote:
+      "This tag frame is beautiful. Even prettier in person... There's no AI or Chinese poorly made items passed off as homemade. It's the real deal!",
+    name: "Etsy Buyer",
+    date: "Jun 2026",
+    productSlug: "wing-license-plate-frame",
+  },
+  {
+    quote: "Unique piece of automotive art that sets my car apart!",
+    name: "Warren",
+    date: "May 2026",
+    productSlug: "owl-license-plate-frame",
+  },
+];
+
 const faqs = [
   {
     q: "Will a frame fit my plate?",
@@ -189,6 +215,56 @@ export default function HomePage() {
               </p>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Real Etsy reviews — three, because that's how many genuine,
+          on-topic, positive reviews the shop actually has. */}
+      <section className="px-6 py-16">
+        <div className="mx-auto max-w-5xl text-center">
+          <h2 className={`${display.className} text-2xl uppercase tracking-wide text-ink sm:text-3xl`}>
+            What Customers Say
+          </h2>
+          <p className={`${plateMono.className} mt-2 text-[11px] uppercase tracking-[0.2em] text-ink-soft`}>
+            Real reviews from Etsy buyers
+          </p>
+
+          <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-3">
+            {reviews.map((review) => {
+              const product = products.find((p) => p.slug === review.productSlug);
+              if (!product) return null;
+              return (
+                <Link
+                  key={review.name}
+                  href={product.etsy}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="plate-holes flex flex-col items-center rounded-lg border border-chrome/40 bg-white p-5 text-left shadow-sm"
+                >
+                  <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded border border-chrome/40 bg-surface">
+                    <Image src={product.src} alt={product.title} fill className="object-contain p-1" />
+                  </div>
+                  <p className="mt-3 text-[13px] text-resin">★★★★★</p>
+                  <p className={`${body.className} mt-2 text-sm italic text-ink-soft`}>&ldquo;{review.quote}&rdquo;</p>
+                  <p className={`${plateMono.className} mt-3 text-[11px] uppercase tracking-wide text-ink-soft`}>
+                    {review.name} · {review.date}
+                  </p>
+                  <p className={`${plateMono.className} mt-1 text-[10px] uppercase tracking-wide text-ontario`}>
+                    {product.title}
+                  </p>
+                </Link>
+              );
+            })}
+          </div>
+
+          <a
+            href="https://www.etsy.com/ca/shop/DecoForge3D/reviews"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`${plateMono.className} mt-8 inline-block text-[11px] uppercase tracking-wide text-ontario hover:underline`}
+          >
+            See all reviews on Etsy →
+          </a>
         </div>
       </section>
 
